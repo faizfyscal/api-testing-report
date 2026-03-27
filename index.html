@@ -2,15 +2,111 @@
 <html>
 <head>
   <title>API Automation Reports</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    h2 {
+      color: #34495e;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .section-title {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
 </head>
+
 <body>
+
   <h1>API Automation Dashboard</h1>
 
+  <!-- Payment Service -->
   <h2>Payment Service</h2>
-  <ul>
-    <li><a href="/services/payment-service/accounts/latest/report.html">Accounts</a></li>
-    <li><a href="/services/payment-service/transactions/latest/report.html">Transactions</a></li>
-  </ul>
+
+  <div class="card">
+    <div class="section-title">Accounts</div>
+    <ul>
+      <li><a href="services/payment-service/accounts/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/accounts/history/2026-03-18.html">2026-03-18</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Transactions</div>
+    <ul>
+      <li><a href="services/payment-service/transactions/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/transactions/history/2026-03-26.html">2026-03-26</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Payments BO → Accounts</div>
+    <ul>
+      <li><a href="services/payment-service/payments-bo/accounts/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-11.html">2026-03-11</a></li>
+      <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-18.html">2026-03-18</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Payments BO → Account Types</div>
+    <ul>
+      <li><a href="services/payment-service/payments-bo/account-types/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/payments-bo/account-types/history/2026-03-11.html">2026-03-11</a></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Accounts → History (Nested)</div>
+    <ul>
+      <li><a href="services/payment-service/accounts/history/2026-03-18.html">2026-03-18</a></li>
+    </ul>
+  </div>
+
+  <h2>User Service</h2>
+  <div class="card">
+    <p>No reports available yet</p>
+  </div>
 
 </body>
 </html>
