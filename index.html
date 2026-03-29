@@ -1,72 +1,150 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>API Automation Reports</title>
+  <title>API Automation Dashboard</title>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f7fa;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+      background-color: #f4f6f9;
       margin: 0;
-      padding: 20px;
+      padding: 30px;
+      color: #2c3e50;
     }
 
     h1 {
       text-align: center;
-      color: #2c3e50;
+      margin-bottom: 40px;
+      font-size: 28px;
+      font-weight: 600;
     }
 
     h2 {
-      color: #34495e;
-      margin-top: 30px;
+      margin-top: 40px;
+      font-size: 20px;
+      font-weight: 600;
+      border-left: 4px solid #3498db;
+      padding-left: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 15px;
     }
 
     .card {
-      background: white;
-      padding: 15px 20px;
-      margin: 15px 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+
+    .sub-section {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
     }
 
     ul {
-      list-style-type: none;
+      list-style: none;
       padding-left: 0;
+      margin: 0;
     }
 
     li {
-      margin: 8px 0;
+      margin: 6px 0;
     }
 
     a {
       text-decoration: none;
       color: #3498db;
-      font-weight: 500;
+      font-size: 14px;
     }
 
     a:hover {
       text-decoration: underline;
     }
 
-    .section-title {
-      margin-top: 10px;
-      font-weight: bold;
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 6px;
+      margin-left: 6px;
+      border-radius: 6px;
+      background: #ecf0f1;
       color: #555;
+    }
+
+    .latest {
+      background: #d4efdf;
+      color: #1e8449;
+    }
+
+    .empty {
+      color: #999;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>API Automation Dashboard</h1>
+<h1>API Automation Dashboard</h1>
 
-  <!-- Payment Service -->
-  <h2>Payment Service</h2>
+<!-- Goods & Services -->
+<h2>Goods & Services</h2>
+<div class="grid">
+  <div class="card">
+    <div class="section-title">Reports</div>
+    <ul>
+      <li>
+        <a href="services/goods-and-services/report.html">
+          View Report <span class="tag latest">latest</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- KYC -->
+<h2>KYC Service</h2>
+<div class="grid">
+  <div class="card">
+    <div class="section-title">Reports</div>
+    <ul>
+      <li>
+        <a href="services/kyc/report.html">
+          View Report <span class="tag latest">latest</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Payment Service -->
+<h2>Payment Service</h2>
+
+<div class="grid">
 
   <div class="card">
     <div class="section-title">Accounts</div>
     <ul>
-      <li><a href="services/payment-service/accounts/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/accounts/latest/report.html">Latest <span class="tag latest">new</span></a></li>
       <li><a href="services/payment-service/accounts/history/2026-03-18.html">2026-03-18</a></li>
     </ul>
   </div>
@@ -74,39 +152,43 @@
   <div class="card">
     <div class="section-title">Transactions</div>
     <ul>
-      <li><a href="services/payment-service/transactions/latest/report.html">Latest Report</a></li>
+      <li><a href="services/payment-service/transactions/latest/report.html">Latest <span class="tag latest">new</span></a></li>
       <li><a href="services/payment-service/transactions/history/2026-03-26.html">2026-03-26</a></li>
     </ul>
   </div>
 
   <div class="card">
-    <div class="section-title">Payments BO → Accounts</div>
-    <ul>
-      <li><a href="services/payment-service/payments-bo/accounts/latest/report.html">Latest Report</a></li>
-      <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-11.html">2026-03-11</a></li>
-      <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-18.html">2026-03-18</a></li>
-    </ul>
+    <div class="section-title">Payments BO</div>
+
+    <div class="sub-section">
+      <div class="section-title">Accounts</div>
+      <ul>
+        <li><a href="services/payment-service/payments-bo/accounts/latest/report.html">Latest</a></li>
+        <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-11.html">2026-03-11</a></li>
+        <li><a href="services/payment-service/payments-bo/accounts/history/2026-03-18.html">2026-03-18</a></li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <div class="section-title">Account Types</div>
+      <ul>
+        <li><a href="services/payment-service/payments-bo/account-types/latest/report.html">Latest</a></li>
+        <li><a href="services/payment-service/payments-bo/account-types/history/2026-03-11.html">2026-03-11</a></li>
+      </ul>
+    </div>
+
   </div>
 
-  <div class="card">
-    <div class="section-title">Payments BO → Account Types</div>
-    <ul>
-      <li><a href="services/payment-service/payments-bo/account-types/latest/report.html">Latest Report</a></li>
-      <li><a href="services/payment-service/payments-bo/account-types/history/2026-03-11.html">2026-03-11</a></li>
-    </ul>
-  </div>
+</div>
 
+<!-- User Service -->
+<h2>User Service</h2>
+<div class="grid">
   <div class="card">
-    <div class="section-title">Accounts → History (Nested)</div>
-    <ul>
-      <li><a href="services/payment-service/accounts/history/2026-03-18.html">2026-03-18</a></li>
-    </ul>
+    <div class="section-title">Reports</div>
+    <p class="empty">No reports available yet</p>
   </div>
-
-  <h2>User Service</h2>
-  <div class="card">
-    <p>No reports available yet</p>
-  </div>
+</div>
 
 </body>
 </html>
