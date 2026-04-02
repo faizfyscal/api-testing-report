@@ -151,6 +151,20 @@ const dashboardData = [
         // },
       ],
     },
+     {
+      title: "Notification-health",
+      links: [
+        {
+          label: "Latest",
+          href: "/services/notification-service/notification-health-check.html",
+          tag: "new",
+        },
+        // {
+        //   label: "2026-03-30",
+        //   href: "/services/notification-service/template/history/2026-03-30.html",
+        // },
+      ],
+    },
 
 
 
