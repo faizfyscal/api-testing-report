@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: scroll;">
+<head>
+  <meta charset="UTF-8">
+  <title>Newman Summary Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+
+<style>
+code.renderMarkdown table, code.renderMarkdown th, code.renderMarkdown td {
+    border: 1px solid black;
+    width: max-content;
+    padding: .75rem;
+}
+
+.theme-dark {
+    --background-color: #222;
+    --bg-card-deck: #444444;
+    --text-color: #ccd2d8;
+    --tab-border: solid 1px #444;
+    --success: #3c9372;
+    --failure: #c24a3f;
+    --warning: #d28c23;
+    --info: #4083b6;
+    --badge-outline: #3c9372;
+    --badge-bg: #cdd3db;
+    --badge-text: #ccd2d9;
+    --failure-row: #c24a3f;
+    --warning-row: #d28c23;
+    --card-bg: #444;
+    --card-footer: #4f5758;
+    --form-input: #ececb5;
+    --hov-text: #d2dae5;
+    --h4-text: #ccd1d9;
+}
+
+.theme-light {
+    --tab-border: solid 1px #fff;
+    --text-color: #000000;
+    --success: #42a745;
+    --failure: #dc3544;
+    --warning: #f4c10b;
+    --info: #49a1b8;
+    --badge-outline: #040411;
+    --badge-bg: #f8f9fa;
+    --badge-text: #fff;
+    --failure-row: #f5c6cb;
+    --warning-row: #ffeeba;
+    --card-bg: #f7f7f7;
+    --hov-text: #fff;
+    --h4-text: #ffffff;
+}
+
+body {
+  padding-top:30px;
+  background-color: var(--background-color)!important;
+  color: var(--text-color);
+}
+
+#execution-data {
+  padding: 10px;
+  border: var(--tab-border);
+  border-top: none;
+}
+
+.nav-tabs {
+  padding-top: 10px;
+  height: 105px;
+  overflow-y: auto;
+}
+
+body.theme-dark .card-header {
+    background-color: #444;
+}
+
+body.theme-light .card-header {
+    background-color: #f7f7f7;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: var(--card-footer);
+}
+
+.card-deck {
+    background-color: var(--bg-card-deck)!important;
+}
+.form-control {
+    background: var(--form-input);
+}
+
+.custom-tab {
+  padding: 10px 15px;
+  margin-right: 0px;
+  height: 47px;
+  width: 69px;
+  text-align: center;
+  border: var(--tab-border);
+  border-bottom: none;
+  cursor:pointer;
+}
+
+body.theme-dark .text-white {
+    color: #ccd2d9!important;
+}
+h4 {
+    color: var(--h4-text);
+}
+
+body.theme-dark h1 {
+    color: #ccd2da;
+}
+
+body.theme-dark .bg-light>td {
+    background: #4f5858!important;
+}
+
+body.theme-dark .hljs {
+    background: #0a0a0ab0!important;
+    color: #8d8787!important;
+}
+
+.bg-info {
+    background-color: var(--info)!important;
+}
+.bg-success {
+    background-color: var(--success)!important;
+}
+
+.alert-success {
+    background-color: var(--success)!important;
+}
+
+.alert-warning {
+    background-color: var(--warning)!important;
+}
+
+.alert-info {
+    background-color: var(--info)!important;
+}
+
+.bg-warning {
+    background-color: var(--warning)!important;
+}
+
+.badge-warning {
+    color: var(--badge-text)!important;
+    background-color: var(--warning)!important;
+}
+
+.table-warning>td {
+    background-color: var(--warning-row);
+}
+
+.alert-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .alert-dark {
+    background-color: #636467!important;
+}
+
+body.theme-dark .text-dark {
+    color: #d1dae4!important;
+}
+
+body.theme-dark .badge-light {
+    color: #212529;
+    background-color: #cdd3db;
+}
+
+body.theme-light .badge-light {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+body.theme-light .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.table-danger>td {
+    background-color: var(--failure-row);
+}
+
+body.theme-dark .table .thead-light th {
+    background-color: #4f5858!important;
+    border-color: #dee2e6!important;
+    color: #ccd2d8!important;
+}
+
+.itPassed {
+  background: var(--success);
+  color: white;
+}
+.itFailed {
+  background: var(--failure);
+  color: white;
+}
+
+.resultsInfoPass {
+  color: var(--success);
+  padding-top: 4px;
+}
+
+.resultsInfoFail {
+  color: var(--failure);
+  padding-top: 4px;
+}
+
+.badge-outline-success {
+  color: var(--success);
+  border: 1px solid var(--success);
+  background-color: transparent;
+}
+
+.badge-outline {
+  color: var(--badge-outline);
+  border: 1px solid var(--badge-outline);
+  background-color: transparent;
+}
+
+.btn-outline-success {
+    color: var(--success)!important;
+    border-color: var(--success)!important;
+}
+
+.backToTop:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-secondary {
+  background-color: var(--success)!important;
+  color: var(--hov-text)!important;
+}
+
+body.theme-dark .env-heading {
+    color: #ccd2d9!important;
+}
+
+body, html {
+  height:100%;
+}
+
+.card {
+  overflow:hidden;
+}
+
+body.theme-dark .card-body {
+    background-color: #444;
+}
+
+body.theme-light .card-body {
+    background-color: #f7f7f7;
+}
+
+body.theme-dark .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-light .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.card-body .rotate {
+  z-index: 8;
+  float: right;
+  height: 100%;
+}
+
+.card-body .rotate i {
+  color: #14141426;
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: -10px;
+  bottom: 0;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}
+
+.dyn-height {
+  max-height:350px;
+  overflow-y:auto;
+}
+
+.nav-pills .nav-link.active {
+  background-color: transparent!important;
+}
+
+.backToTop {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 99;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
+
+.single-line-tabs {
+  padding-top: 10px;
+  height: 60px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px #2020203d;
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .slider {
+  background-color: #4083b6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4083b6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+table.dataTable td, table.dataTable tr {
+    vertical-align: middle;
+}
+
+body.theme-dark code {
+    color: #ccd2d8!important;
+}
+
+body.theme-light code {
+    color: #000000!important;
+}
+
+.text-wrap {
+    word-wrap: break-word; 
+    min-width: 600px; 
+    max-width: 600px; 
+    white-space: normal;
+}
+
+</style>
+</head>
+<body class="theme-dark">
+<script>
+    function setTheme(themeName) {
+        localStorage.setItem('theme', themeName);
+        document.body.className = themeName;
+    }
+
+    function toggleTheme() {
+        if (localStorage.getItem('theme') === 'theme-light') {
+            setTheme('theme-dark');
+        } else {
+            setTheme('theme-light');
+        }
+    }
+</script>
+  <div class="container">
+        <div class="container">
+            <label>Light</label>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <label>Dark</label>
+        </div>
+        <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+            <li class="nav-item bg-info active" data-toggle="tooltip" title="Click to view the Summary">
+                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</a>
+            </li>
+            <li class="nav-item bg-success" data-toggle="tooltip" title="Click to view the Requests">
+                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">Total Requests <span class="badge badge-light">3</span></a>
+            </li>
+            <li class="nav-item bg-danger" data-toggle="tooltip" title="Click to view the Failed Tests">
+                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">Failed Tests <span class="badge badge-light">0</span></a>
+            </li>
+            <li class="nav-item bg-warning" data-toggle="tooltip" title="Click to view the Skipped Tests">
+                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">Skipped Tests <span class="badge badge-light">0</span></a>
+            </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-summary" role="tabcard" aria-labelledby="pills-summary-tab">
+<div class="row">
+  <div class="col-md-9 col-lg-12 main">
+   <h1 class="display-2 text-center">Newman Run Dashboard</h1>
+   <h5 class="text-center">Wednesday, 18 March 2026 13:00:53</h5>
+   <div class="row">
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-success">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-retweet fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Iterations</h6>
+       <h1 class="display-1">1</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-danger">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-list fa-4x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Assertions</h6>
+       <h1 class="display-1">25</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-info">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-plus-circle fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Failed Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-warning">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-share fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Skipped Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+   </div>
+   <hr>
+    <div class="row">
+    <div class="col">
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">File Information</h5>
+                <span><i class="fas fa-file-code"></i></span><strong> Collection:</strong> Payment Channel<br>
+                
+                <span><i class="fas fa-file-code"></i></span><strong> Environment:</strong> STG<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">Timings and Data</h5>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Total run duration:</strong> 967ms<br>
+                <span><i class="fas fa-database"></i></span><strong> Total data received:</strong> 4.74KB<br>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Average response time:</strong> 236ms<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th class="text-uppercase">Summary Item</th>
+                        <th class="text-uppercase">Total</th>
+                        <th class="text-uppercase">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Prerequest Scripts</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Test Scripts</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Assertions</td>
+                        <td class="text-center">25</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Skipped Tests</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    <hr>
+   </div>
+   </div>
+  </div>
+ </div>
+        </div>
+            <div class="tab-pane fade" id="pills-failed" role="tabcard" aria-labelledby="pills-failed-tab">
+                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                     <br><br><h1 class="text-center">There are no failed tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-skipped" role="tabcard" aria-labelledby="pills-skipped-tab">
+                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                    <br><br><h1 class="text-center">There are no skipped tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-requests" role="tabcard" aria-labelledby="pills-requests-tab">
+
+            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+            <div class="btn-group float-right" role="group" aria-label="Button Group">
+                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Folders</button>
+                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Requests</button>
+            </div>
+
+    <div class="text-uppercase" id="execution-menu">
+        <h5>1 Iteration available to view</h5>
+        
+        <nav class="table-responsive">
+        <ul class="nav single-line-tabs" id="iterationList">
+        </ul>
+        </nav>
+    </div>
+    <h6 class="text-uppercase text-muted" id="iterationSelected" style="padding-top: 10px;"></h6>
+	<div class="tab-content" id="execution-data">
+            <div id="folder-f9ba8744-8e31-449c-80c6-343d271ae52c" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-f9ba8744-8e31-449c-80c6-343d271ae52c" aria-expanded="false" aria-controls="collapse" id="requests-f9ba8744-8e31-449c-80c6-343d271ae52c" class="collapsed text-white z-block">
+                    Iteration: 1 - Get multiple Payment Channel <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-f9ba8744-8e31-449c-80c6-343d271ae52c" class="collapse" aria-labelledby="requests-f9ba8744-8e31-449c-80c6-343d271ae52c">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> GET</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://dev-api.smartmoney.com.ph//payments/v1/payment_channels" target="_blank">https://dev-api.smartmoney.com.ph//payments/v1/payment_channels</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 445ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 4.41KB</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">x-client-id</td>
+                                                        <td class="text-wrap">smart_app_backoffice</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJub3JtYWwiLCJjbGllbnRfaWQiOiJzbWFydF9hcHBfYmFja29mZmljZSIsImRldmljZV9pZCI6ImRldmljZS1pZCIsImV4cCI6MTc3Mzg2MTU2OCwiaWF0IjoxNzczODE4MzY4LCJpc3MiOiJhdXRoIiwic2NvcGVzIjoiYWdlbnQ6bG9naW4gb2F1dGhfY2xpZW50czp2aWV3IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTptYW5hZ2UgbGVkZ2VyOmxlZGdlcnNfZGVsZXRlIGxlZGdlcjphcGlfa2V5c19pbmRleCBiaWxsZXJzOmFkZCBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfdXBkYXRlIHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19kZWxldGUgcGF5bWVudDp0cmFuc2FjdGlvbnNfaW5kZXggYW5hbHl0aWNzX2NsaWVudDptYW5hZ2UgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX3Nob3cgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2NyZWF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfZGVsZXRlIGFjY291bnQtdHlwZXM6bWFuYWdlIGxlZGdlcjpsZWRnZXJfYWNjb3VudHNfc2hvdyBsZWRnZXI6YXBpX2tleXNfZGVsZXRlIHRlYW0tbWVtYmVyczplZGl0IGFsZXJ0czphZG1pbiBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9jaGVja2VyIHBheW1lbnQ6ZGVkdWN0aW9uc19kZWxldGUgb3JnOnZpZXcgYWNjb3VudC10eXBlczp2aWV3IGN1c3RvbWVyOnVuYmxvY2sga3ljLmlkX2FuZF9zZWxmaWU6dmlldyBwcm9kdWN0LWNhdGVnb3JpZXM6ZG93bmxvYWQgY3VzdG9tZXI6dmlldyBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfc2hvdyBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2NyZWF0ZSBwYXltZW50OmJhbmtzX2RlbGV0ZSBwYXltZW50OnRyYW5zYWN0aW9uc19kb3dubG9hZCB0ZWFtLW1lbWJlcnM6dmlldyBreWMuYWRkcmVzczp2aWV3IGxlZGdlcjpvcmdhbml6YXRpb25zX3Nob3cgY2hhbm5lbHM6dmlldyBhZ2VudDpjcmVhdGUgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfdXBkYXRlIG5vdGlmaWNhdGlvbjphZG1pbiBzdXBlcjphZG1pbiBhbGVydHNfdWc6dmlldyBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19zaG93IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX2luZGV4IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTp2aWV3IGt5Yy5lbXBsb3ltZW50OnZpZXcgcGF5bWVudDphY2NvdW50c19pbmRleCBiYW5rLWFjY291bnRzOnZpZXcgaW50ZXJuYWwtY2FzaC1hY2NvdW50czp2aWV3IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19pbmRleCBwYXltZW50OmFjY291bnRzX3VwZGF0ZSBwcm9kdWN0LXRhZ3M6ZWRpdCBwcm9kdWN0LXRhZ3M6ZG93bmxvYWQgcGF5bWVudDp0cmFuc2FjdGlvbl9saW1pdHNfZ2V0IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfYmFsYW5jZSBwYXltZW50OmFjY291bnRzX3VuZnJlZXplIGF1ZGl0X3RyYWlsOnZpZXcgYmFuay1hY2NvdW50czplZGl0IHByb2R1Y3RzOnZpZXcgcGF5bWVudDpiYW5rc19pbmRleCBvcmRlcnM6dmlldyBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfY3JlYXRlIHJlZnVuZHM6ZG93bmxvYWQgcGF5bWVudDpkb3dubG9hZHNfc2hvdyBwcm9kdWN0czplZGl0IHBheW1lbnQ6YWNjb3VudF9jb25zdHJhaW50c19kZWxldGUgcGF5bWVudDppbnRlcm5hbF90cmFuc2ZlciBpbnRlcm5hbC1jYXNoLWFjY291bnRzOmVkaXQgbGVkZ2VyOnNldHRsZW1lbnRfY3JlYXRlIHNlbGxlcnM6ZWRpdCBreWM6bWFuYWdlIGxlZGdlcjpiYWxhbmNlX21vbml0b3JfZGVsZXRlIHJvbGVzOnZpZXcgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX2luZGV4IHRlYW0tbWVtYmVyczppbnZpdGUgbGVkZ2VyOmxlZGdlcnNfdXBkYXRlIGFwaV9rZXlzOm1hbmFnZSBwYXltZW50OmFjY291bnRfdHlwZXNfdXBkYXRlIHJlZnVuZHM6aW5pdGlhdGUgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2luZGV4IHByb2R1Y3QtdGFnczptYW5hZ2UtcHJvZHVjdHMgdmVuZG9yczp2aWV3IHBheW1lbnQ6YmVuZWZpY2lhcmllc19pbmRleCBub3RpZmljYXRpb25fY29uZmlnOnZpZXcgcGF5bWVudDphY2NvdW50X3R5cGVzX2luZGV4IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX3VwZGF0ZSBreWM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfdXBkYXRlIHBheW1lbnQ6YmVuZWZpY2lhcmllc19zaG93IGFjY291bnQtdHlwZXM6ZWRpdCBtZXJjaGFudHM6dmlldyBwYXltZW50OmJhbmtzX2NyZWF0ZSBsZWRnZXI6b3JnYW5pemF0aW9uc19kZWxldGUgbGVkZ2VyOmxlZGdlcnNfY3JlYXRlIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2RlbGV0ZSBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19pbmRleCBhbmFseXRpY3NfZXZlbnRzOnZpZXcgb3JkZXJzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTphY3Rpb25zIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3VwZGF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfc2hvdyBwcm9kdWN0LXRhZ3M6Y3JlYXRlIGxlZGdlcjpzZXR0bGVtZW50X3Nob3cgYmlsbGVyczp2aWV3IHByb2R1Y3RzOmNyZWF0ZSBub3RpZmljYXRpb25fY29uZmlnOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2RlbGV0ZSBiaWxsZXJzOmVkaXQgYWxlcnRzX3VnOmFkbWluIHJvbGVzOm1hbmFnZSBpbnRlcm5hbC1kZWR1Y3Rpb24tYWNjb3VudHM6ZWRpdCBsZWRnZXI6YXBpX2tleXNfdXBkYXRlIGxlZGdlcjpzZXR0bGVtZW50X2luZGV4IHNlbGxlcnM6dmlldyBwYXltZW50Om1lcmNoYW50X2FjY291bnRzX2JhbGFuY2UgY2hhbm5lbHM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX3N1bW1hcmllc19jbGVhbnVwIHBheW1lbnQ6dHJhbnNhY3Rpb25zX3Nob3cgYWxlcnRzX3VnOm1hbmFnZSBsZWRnZXI6bGVkZ2Vyc19pbmRleCBwcm9kdWN0LXRhZ3M6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfaW5kZXggYmlsbGVyczpkb3dubG9hZCBwYXltZW50OmJhbmtzX3Nob3cgY29uc3VtZXJzOm1hbmFnZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX3VwZGF0ZSBhZ2VudDpyZXNldF9wYXNzd29yZCBhbGVydHM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfY3JlYXRlIHByb2R1Y3QtY2F0ZWdvcmllczpjcmVhdGUgYW5hbHl0aWNzX2NsaWVudDp2aWV3IG1lcmNoYW50czptYW5hZ2UgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfaW5kZXggcGF5bWVudDptZXJjaGFudF9hY2NvdW50c19pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3VwZGF0ZSBvcmc6bWFuYWdlIHBheW1lbnQ6YmVuZWZpY2lhcmllc191cGRhdGUgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX2luZGV4IHBheW1lbnQ6b3JkZXJfcGF5bWVudCBjb25zdW1lcnM6dmlldyBsZWRnZXI6b3JnYW5pemF0aW9uc19jcmVhdGUgcGF5bWVudDp0cmVhc3VyeV9iYW5rc19kZWxldGUgcmV0YWlsOnZpZXcgY3VzdG9tZXI6ZGVhY3RpdmF0ZSBsZWRnZXI6YXBpX2tleXNfc2hvdyBreWMucGVyc29uYWxfaWRlbnRpdHk6dmlldyBjdXN0b21lcjpyZXNldCBreWM6YWRtaW4gdGVhbS1tZW1iZXJzOnJlbW92ZSBwYXltZW50OmFjY291bnRzX2RlbGV0ZSBsZWRnZXI6bGVkZ2Vyc19zaG93IHJldGFpbDpsb2dpbiBsZWRnZXI6YXBpX2tleXNfY3JlYXRlIHByb2R1Y3RzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTp2aWV3IHBheW1lbnQ6dHJlYXN1cnlfYmFua3Nfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2luZGV4IGFuYWx5dGljc19ldmVudHM6bWFuYWdlIHBheW1lbnQ6YWNjb3VudHNfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19yZXZlcnNlIGludGVybmFsLWRlZHVjdGlvbi1hY2NvdW50czp2aWV3IHByb2R1Y3QtY2F0ZWdvcmllczp2aWV3IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19kZWxldGUgcHJvZHVjdC1jYXRlZ29yaWVzOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2NyZWF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfdXBkYXRlIHZlbmRvcnM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX2VudHJpZXNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c191cGRhdGUgcGF5bWVudDphY2NvdW50X3R5cGVzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3Nob3cgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19jb3VudF9pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2luZGV4IGFwaV9rZXlzOnZpZXcgbGVkZ2VyOmxlZGdlcl90cmFuc2FjdGlvbnNfY3JlYXRlIHBheW1lbnQ6ZGVkdWN0aW9uc19zaG93IHJlZnVuZHM6dmlldyBwYXltZW50OmRvd25sb2Fkc19pbmRleCBwYXltZW50OmFjY291bnRfdHlwZV9tYXBwaW5nc19jcmVhdGUgYWxlcnRzOm1hbmFnZSBwYXltZW50OmJhbmtzX3VwZGF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfaW5kZXggb2F1dGhfY2xpZW50czptYW5hZ2UgbGVkZ2VyOmxlZGdlcl9iYWxhbmNlX2hpc3RvcnlfaW5kZXggcGF5bWVudDpwZXNvbmV0X2JhdGNoX3VwZGF0ZSBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9tYWtlciBwYXltZW50OmFjY291bnRzX2ZyZWV6ZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX2NyZWF0ZSBwYXltZW50OmFjY291bnRzX2NyZWF0ZSBwYXltZW50OnBlc29uZXRfY3ljbGVfdXBkYXRlIHBheW1lbnQ6dHJlYXN1cnlfYmFua3NfaW5kZXgiLCJzdWIiOiJhZ3RfMTE5Mjc4YzEtOWJmNC00NTBiLWJhYmQtNTRiZDY4YWNmNWJkIiwidG9rZW5faWQiOjY2NDk3LCJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwidXNlcl9pZCI6IjI2MzAifQ.iIAKDatmtQrhaau52Hl8NIpyTwE3p3a5M9hX1zR9DW0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.39.1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">*/*</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">1eb8a539-ae14-4787-9146-e3e648ecbd4d</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">dev-api.smartmoney.com.ph</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">Date</td>
+                                                    <td class="text-wrap">Wed, 18 Mar 2026 07:30:52 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Type</td>
+                                                    <td class="text-wrap">application/json; charset&#x3D;utf-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Transfer-Encoding</td>
+                                                    <td class="text-wrap">chunked</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Connection</td>
+                                                    <td class="text-wrap">keep-alive</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Access-Control-Allow-Origin</td>
+                                                    <td class="text-wrap">*</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Frame-Options</td>
+                                                    <td class="text-wrap">DENY</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Security-Policy</td>
+                                                    <td class="text-wrap">default-src &#x27;self&#x27;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-XSS-Protection</td>
+                                                    <td class="text-wrap">1; mode&#x3D;block</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Content-Type-Options</td>
+                                                    <td class="text-wrap">nosniff</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Control</td>
+                                                    <td class="text-wrap">no-cache, no-store</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Pragma</td>
+                                                    <td class="text-wrap">no-cache</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Expires</td>
+                                                    <td class="text-wrap">-1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Upstream-Latency</td>
+                                                    <td class="text-wrap">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Proxy-Latency</td>
+                                                    <td class="text-wrap">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Request-Id</td>
+                                                    <td class="text-wrap">3439a94953cbe26bd2f8a934e46e583f</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-f5dc361a-a019-41bf-bb21-3e968b9ed3a5" class="prettyPrint">{&quot;code&quot;:&quot;00000&quot;,&quot;message&quot;:&quot;success&quot;,&quot;result&quot;:[{&quot;id&quot;:864,&quot;uuid&quot;:&quot;874c684f-65a5-4e9e-8fbb-0cea99136e85&quot;,&quot;name&quot;:&quot;channel236&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;channel code test&quot;,&quot;created_at&quot;:&quot;2026-03-09T03:01:39.601884Z&quot;,&quot;updated_at&quot;:&quot;2026-03-09T03:01:39.601884Z&quot;},{&quot;id&quot;:863,&quot;uuid&quot;:&quot;27dfa582-b771-443c-8ab1-6ec0df77c16b&quot;,&quot;name&quot;:&quot;xsstest&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;channel code test&quot;,&quot;created_at&quot;:&quot;2026-03-09T03:01:13.492494Z&quot;,&quot;updated_at&quot;:&quot;2026-03-09T03:01:13.492494Z&quot;},{&quot;id&quot;:855,&quot;uuid&quot;:&quot;9038f62b-2bf1-4e31-ba7a-fe014b5ab17e&quot;,&quot;name&quot;:&quot;Test-011&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;011TT&quot;,&quot;created_at&quot;:&quot;2026-02-23T08:30:28.960582Z&quot;,&quot;updated_at&quot;:&quot;2026-02-23T08:30:28.960582Z&quot;},{&quot;id&quot;:852,&quot;uuid&quot;:&quot;7043c810-4f6b-4cb5-bfb0-86d9176fdd8a&quot;,&quot;name&quot;:&quot;Test-07&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;07TT&quot;,&quot;created_at&quot;:&quot;2026-02-23T08:15:11.271099Z&quot;,&quot;updated_at&quot;:&quot;2026-02-23T08:15:11.271099Z&quot;},{&quot;id&quot;:413,&quot;uuid&quot;:&quot;f046ce7e-ed79-40dd-9a4b-52fb69ef9fd3&quot;,&quot;name&quot;:&quot;Xendit - M Lhuillier&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;MLHUILLIER&quot;,&quot;created_at&quot;:&quot;2026-02-19T09:39:28.109998Z&quot;,&quot;updated_at&quot;:&quot;2026-02-19T09:39:28.109998Z&quot;},{&quot;id&quot;:412,&quot;uuid&quot;:&quot;2d49ddb4-8da9-4458-9e35-fd4fcf3e0a34&quot;,&quot;name&quot;:&quot;Xendit - Mlhuillier&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;MLHUILLIER&quot;,&quot;created_at&quot;:&quot;2025-11-19T10:28:41.971538Z&quot;,&quot;updated_at&quot;:&quot;2025-11-19T10:28:41.971538Z&quot;},{&quot;id&quot;:410,&quot;uuid&quot;:&quot;fa02cd74-a75b-406b-bb49-e8fe6ff00481&quot;,&quot;name&quot;:&quot;Xendit - 7-Eleven CliQQ&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;7ELEVEN_CLIQQ&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:26:31.188344Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:26:31.188344Z&quot;},{&quot;id&quot;:409,&quot;uuid&quot;:&quot;508e43d5-1b39-4e8e-875f-eec8804f51b5&quot;,&quot;name&quot;:&quot;Xendit - USSC&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;USSC&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:25:58.830123Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:25:58.830123Z&quot;},{&quot;id&quot;:408,&quot;uuid&quot;:&quot;a7fbed91-3942-4762-9515-83b1fe25dd01&quot;,&quot;name&quot;:&quot;Xendit - SM Bills Payment&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;SM_BILLS_PAYMENT&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:25:20.749015Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:25:20.749015Z&quot;},{&quot;id&quot;:407,&quot;uuid&quot;:&quot;7159466b-5bb5-4e6e-902f-2f5e3a2e5d2b&quot;,&quot;name&quot;:&quot;Xendit - Robinsons Bill Payment&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;ROBINSONS_BILLS_PAYMENT&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:20:16.099833Z&quot;,&quot;updated_at&quot;:&quot;2025-12-15T05:21:53.256185Z&quot;},{&quot;id&quot;:406,&quot;uuid&quot;:&quot;c4a8babb-bc95-49d9-830b-3e19f4f4ea2c&quot;,&quot;name&quot;:&quot;Xendit - Palawan express&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;PALAWAN&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:19:40.76322Z&quot;,&quot;updated_at&quot;:&quot;2026-02-01T17:48:57.898873Z&quot;},{&quot;id&quot;:405,&quot;uuid&quot;:&quot;833eeefb-58e4-489c-99c5-a68d325b6b2b&quot;,&quot;name&quot;:&quot;Xendit - LBC&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;LBC&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:19:10.656626Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:19:10.656626Z&quot;},{&quot;id&quot;:404,&quot;uuid&quot;:&quot;a6e39c05-1d33-47b7-b27f-08624d04bdb0&quot;,&quot;name&quot;:&quot;Xendit - ECPay&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;ECPAY&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:18:43.525567Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:18:43.525567Z&quot;},{&quot;id&quot;:403,&quot;uuid&quot;:&quot;5cfd0841-07b9-4562-8556-632bf1ca183e&quot;,&quot;name&quot;:&quot;Xendit - CVM Pawnshop&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;CVM&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:18:09.535101Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:18:09.535101Z&quot;},{&quot;id&quot;:402,&quot;uuid&quot;:&quot;6ebc4a0f-a720-4f94-9cf7-895efb13bf09&quot;,&quot;name&quot;:&quot;Xendit - Cebuna&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;CEBUANA&quot;,&quot;created_at&quot;:&quot;2025-10-31T05:14:43.404441Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T05:14:43.404441Z&quot;},{&quot;id&quot;:401,&quot;uuid&quot;:&quot;65a22807-6c50-434e-90de-697fc5bff65d&quot;,&quot;name&quot;:&quot;Xendit - 7-Eleven&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;7ELEVEN&quot;,&quot;created_at&quot;:&quot;2025-10-29T08:56:35.715509Z&quot;,&quot;updated_at&quot;:&quot;2025-10-31T14:09:23.835684Z&quot;},{&quot;id&quot;:400,&quot;uuid&quot;:&quot;129e78eb-9ce2-421b-b356-e594e9125b7f&quot;,&quot;name&quot;:&quot;PESONET&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;EXTERNAL&quot;,&quot;created_at&quot;:&quot;2025-08-04T05:33:29.833716Z&quot;,&quot;updated_at&quot;:&quot;2025-09-30T09:40:22.631211Z&quot;},{&quot;id&quot;:384,&quot;uuid&quot;:&quot;9d2ccc79-2e19-4c47-bb1e-ea70585c8353&quot;,&quot;name&quot;:&quot;INSTAPAY&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;EXTERNAL&quot;,&quot;created_at&quot;:&quot;2025-06-04T05:53:31.459552Z&quot;,&quot;updated_at&quot;:&quot;2026-02-02T11:02:43.306545Z&quot;},{&quot;id&quot;:49,&quot;uuid&quot;:&quot;811d3db8-8b10-4fa3-a9a6-d347e5fa762a&quot;,&quot;name&quot;:&quot;SMART_MONEY&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;INTERNAL&quot;,&quot;created_at&quot;:&quot;2025-03-01T13:36:48.617421Z&quot;,&quot;updated_at&quot;:&quot;2025-05-27T10:25:33.793313Z&quot;}],&quot;pagination&quot;:{&quot;current_page&quot;:1,&quot;limit&quot;:25,&quot;total_items&quot;:19,&quot;total_pages&quot;:1}}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-f5dc361a-a019-41bf-bb21-3e968b9ed3a5">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >API response is successful</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Result is an array</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >At least one channel exists</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Active channels exist</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel has required fields</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel status is ACTIVE</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel type is valid</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel code exists if present</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Pagination is correct</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">10</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div id="folder-8ac728b7-779a-4ec3-8ec5-105ed88f9b45" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45" aria-expanded="false" aria-controls="collapse" id="requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45" class="collapsed text-white z-block">
+                    Iteration: 1 - Get one payment channel <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45" class="collapse" aria-labelledby="requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> GET</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://dev-api.smartmoney.com.ph//payments/v1/payment_channels/412" target="_blank">https://dev-api.smartmoney.com.ph//payments/v1/payment_channels/412</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 106ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 284B</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">x-client-id</td>
+                                                        <td class="text-wrap">smart_app_backoffice</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJub3JtYWwiLCJjbGllbnRfaWQiOiJzbWFydF9hcHBfYmFja29mZmljZSIsImRldmljZV9pZCI6ImRldmljZS1pZCIsImV4cCI6MTc3Mzg2MTU2OCwiaWF0IjoxNzczODE4MzY4LCJpc3MiOiJhdXRoIiwic2NvcGVzIjoiYWdlbnQ6bG9naW4gb2F1dGhfY2xpZW50czp2aWV3IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTptYW5hZ2UgbGVkZ2VyOmxlZGdlcnNfZGVsZXRlIGxlZGdlcjphcGlfa2V5c19pbmRleCBiaWxsZXJzOmFkZCBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfdXBkYXRlIHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19kZWxldGUgcGF5bWVudDp0cmFuc2FjdGlvbnNfaW5kZXggYW5hbHl0aWNzX2NsaWVudDptYW5hZ2UgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX3Nob3cgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2NyZWF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfZGVsZXRlIGFjY291bnQtdHlwZXM6bWFuYWdlIGxlZGdlcjpsZWRnZXJfYWNjb3VudHNfc2hvdyBsZWRnZXI6YXBpX2tleXNfZGVsZXRlIHRlYW0tbWVtYmVyczplZGl0IGFsZXJ0czphZG1pbiBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9jaGVja2VyIHBheW1lbnQ6ZGVkdWN0aW9uc19kZWxldGUgb3JnOnZpZXcgYWNjb3VudC10eXBlczp2aWV3IGN1c3RvbWVyOnVuYmxvY2sga3ljLmlkX2FuZF9zZWxmaWU6dmlldyBwcm9kdWN0LWNhdGVnb3JpZXM6ZG93bmxvYWQgY3VzdG9tZXI6dmlldyBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfc2hvdyBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2NyZWF0ZSBwYXltZW50OmJhbmtzX2RlbGV0ZSBwYXltZW50OnRyYW5zYWN0aW9uc19kb3dubG9hZCB0ZWFtLW1lbWJlcnM6dmlldyBreWMuYWRkcmVzczp2aWV3IGxlZGdlcjpvcmdhbml6YXRpb25zX3Nob3cgY2hhbm5lbHM6dmlldyBhZ2VudDpjcmVhdGUgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfdXBkYXRlIG5vdGlmaWNhdGlvbjphZG1pbiBzdXBlcjphZG1pbiBhbGVydHNfdWc6dmlldyBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19zaG93IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX2luZGV4IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTp2aWV3IGt5Yy5lbXBsb3ltZW50OnZpZXcgcGF5bWVudDphY2NvdW50c19pbmRleCBiYW5rLWFjY291bnRzOnZpZXcgaW50ZXJuYWwtY2FzaC1hY2NvdW50czp2aWV3IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19pbmRleCBwYXltZW50OmFjY291bnRzX3VwZGF0ZSBwcm9kdWN0LXRhZ3M6ZWRpdCBwcm9kdWN0LXRhZ3M6ZG93bmxvYWQgcGF5bWVudDp0cmFuc2FjdGlvbl9saW1pdHNfZ2V0IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfYmFsYW5jZSBwYXltZW50OmFjY291bnRzX3VuZnJlZXplIGF1ZGl0X3RyYWlsOnZpZXcgYmFuay1hY2NvdW50czplZGl0IHByb2R1Y3RzOnZpZXcgcGF5bWVudDpiYW5rc19pbmRleCBvcmRlcnM6dmlldyBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfY3JlYXRlIHJlZnVuZHM6ZG93bmxvYWQgcGF5bWVudDpkb3dubG9hZHNfc2hvdyBwcm9kdWN0czplZGl0IHBheW1lbnQ6YWNjb3VudF9jb25zdHJhaW50c19kZWxldGUgcGF5bWVudDppbnRlcm5hbF90cmFuc2ZlciBpbnRlcm5hbC1jYXNoLWFjY291bnRzOmVkaXQgbGVkZ2VyOnNldHRsZW1lbnRfY3JlYXRlIHNlbGxlcnM6ZWRpdCBreWM6bWFuYWdlIGxlZGdlcjpiYWxhbmNlX21vbml0b3JfZGVsZXRlIHJvbGVzOnZpZXcgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX2luZGV4IHRlYW0tbWVtYmVyczppbnZpdGUgbGVkZ2VyOmxlZGdlcnNfdXBkYXRlIGFwaV9rZXlzOm1hbmFnZSBwYXltZW50OmFjY291bnRfdHlwZXNfdXBkYXRlIHJlZnVuZHM6aW5pdGlhdGUgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2luZGV4IHByb2R1Y3QtdGFnczptYW5hZ2UtcHJvZHVjdHMgdmVuZG9yczp2aWV3IHBheW1lbnQ6YmVuZWZpY2lhcmllc19pbmRleCBub3RpZmljYXRpb25fY29uZmlnOnZpZXcgcGF5bWVudDphY2NvdW50X3R5cGVzX2luZGV4IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX3VwZGF0ZSBreWM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfdXBkYXRlIHBheW1lbnQ6YmVuZWZpY2lhcmllc19zaG93IGFjY291bnQtdHlwZXM6ZWRpdCBtZXJjaGFudHM6dmlldyBwYXltZW50OmJhbmtzX2NyZWF0ZSBsZWRnZXI6b3JnYW5pemF0aW9uc19kZWxldGUgbGVkZ2VyOmxlZGdlcnNfY3JlYXRlIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2RlbGV0ZSBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19pbmRleCBhbmFseXRpY3NfZXZlbnRzOnZpZXcgb3JkZXJzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTphY3Rpb25zIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3VwZGF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfc2hvdyBwcm9kdWN0LXRhZ3M6Y3JlYXRlIGxlZGdlcjpzZXR0bGVtZW50X3Nob3cgYmlsbGVyczp2aWV3IHByb2R1Y3RzOmNyZWF0ZSBub3RpZmljYXRpb25fY29uZmlnOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2RlbGV0ZSBiaWxsZXJzOmVkaXQgYWxlcnRzX3VnOmFkbWluIHJvbGVzOm1hbmFnZSBpbnRlcm5hbC1kZWR1Y3Rpb24tYWNjb3VudHM6ZWRpdCBsZWRnZXI6YXBpX2tleXNfdXBkYXRlIGxlZGdlcjpzZXR0bGVtZW50X2luZGV4IHNlbGxlcnM6dmlldyBwYXltZW50Om1lcmNoYW50X2FjY291bnRzX2JhbGFuY2UgY2hhbm5lbHM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX3N1bW1hcmllc19jbGVhbnVwIHBheW1lbnQ6dHJhbnNhY3Rpb25zX3Nob3cgYWxlcnRzX3VnOm1hbmFnZSBsZWRnZXI6bGVkZ2Vyc19pbmRleCBwcm9kdWN0LXRhZ3M6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfaW5kZXggYmlsbGVyczpkb3dubG9hZCBwYXltZW50OmJhbmtzX3Nob3cgY29uc3VtZXJzOm1hbmFnZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX3VwZGF0ZSBhZ2VudDpyZXNldF9wYXNzd29yZCBhbGVydHM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfY3JlYXRlIHByb2R1Y3QtY2F0ZWdvcmllczpjcmVhdGUgYW5hbHl0aWNzX2NsaWVudDp2aWV3IG1lcmNoYW50czptYW5hZ2UgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfaW5kZXggcGF5bWVudDptZXJjaGFudF9hY2NvdW50c19pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3VwZGF0ZSBvcmc6bWFuYWdlIHBheW1lbnQ6YmVuZWZpY2lhcmllc191cGRhdGUgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX2luZGV4IHBheW1lbnQ6b3JkZXJfcGF5bWVudCBjb25zdW1lcnM6dmlldyBsZWRnZXI6b3JnYW5pemF0aW9uc19jcmVhdGUgcGF5bWVudDp0cmVhc3VyeV9iYW5rc19kZWxldGUgcmV0YWlsOnZpZXcgY3VzdG9tZXI6ZGVhY3RpdmF0ZSBsZWRnZXI6YXBpX2tleXNfc2hvdyBreWMucGVyc29uYWxfaWRlbnRpdHk6dmlldyBjdXN0b21lcjpyZXNldCBreWM6YWRtaW4gdGVhbS1tZW1iZXJzOnJlbW92ZSBwYXltZW50OmFjY291bnRzX2RlbGV0ZSBsZWRnZXI6bGVkZ2Vyc19zaG93IHJldGFpbDpsb2dpbiBsZWRnZXI6YXBpX2tleXNfY3JlYXRlIHByb2R1Y3RzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTp2aWV3IHBheW1lbnQ6dHJlYXN1cnlfYmFua3Nfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2luZGV4IGFuYWx5dGljc19ldmVudHM6bWFuYWdlIHBheW1lbnQ6YWNjb3VudHNfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19yZXZlcnNlIGludGVybmFsLWRlZHVjdGlvbi1hY2NvdW50czp2aWV3IHByb2R1Y3QtY2F0ZWdvcmllczp2aWV3IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19kZWxldGUgcHJvZHVjdC1jYXRlZ29yaWVzOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2NyZWF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfdXBkYXRlIHZlbmRvcnM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX2VudHJpZXNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c191cGRhdGUgcGF5bWVudDphY2NvdW50X3R5cGVzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3Nob3cgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19jb3VudF9pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2luZGV4IGFwaV9rZXlzOnZpZXcgbGVkZ2VyOmxlZGdlcl90cmFuc2FjdGlvbnNfY3JlYXRlIHBheW1lbnQ6ZGVkdWN0aW9uc19zaG93IHJlZnVuZHM6dmlldyBwYXltZW50OmRvd25sb2Fkc19pbmRleCBwYXltZW50OmFjY291bnRfdHlwZV9tYXBwaW5nc19jcmVhdGUgYWxlcnRzOm1hbmFnZSBwYXltZW50OmJhbmtzX3VwZGF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfaW5kZXggb2F1dGhfY2xpZW50czptYW5hZ2UgbGVkZ2VyOmxlZGdlcl9iYWxhbmNlX2hpc3RvcnlfaW5kZXggcGF5bWVudDpwZXNvbmV0X2JhdGNoX3VwZGF0ZSBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9tYWtlciBwYXltZW50OmFjY291bnRzX2ZyZWV6ZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX2NyZWF0ZSBwYXltZW50OmFjY291bnRzX2NyZWF0ZSBwYXltZW50OnBlc29uZXRfY3ljbGVfdXBkYXRlIHBheW1lbnQ6dHJlYXN1cnlfYmFua3NfaW5kZXgiLCJzdWIiOiJhZ3RfMTE5Mjc4YzEtOWJmNC00NTBiLWJhYmQtNTRiZDY4YWNmNWJkIiwidG9rZW5faWQiOjY2NDk3LCJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwidXNlcl9pZCI6IjI2MzAifQ.iIAKDatmtQrhaau52Hl8NIpyTwE3p3a5M9hX1zR9DW0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.39.1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">*/*</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">36714e1a-51a3-41ec-884c-4b5b6b87c8c9</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">dev-api.smartmoney.com.ph</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">Date</td>
+                                                    <td class="text-wrap">Wed, 18 Mar 2026 07:30:52 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Type</td>
+                                                    <td class="text-wrap">application/json; charset&#x3D;utf-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Length</td>
+                                                    <td class="text-wrap">284</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Connection</td>
+                                                    <td class="text-wrap">keep-alive</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Access-Control-Allow-Origin</td>
+                                                    <td class="text-wrap">*</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Frame-Options</td>
+                                                    <td class="text-wrap">DENY</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Security-Policy</td>
+                                                    <td class="text-wrap">default-src &#x27;self&#x27;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-XSS-Protection</td>
+                                                    <td class="text-wrap">1; mode&#x3D;block</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Content-Type-Options</td>
+                                                    <td class="text-wrap">nosniff</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Control</td>
+                                                    <td class="text-wrap">no-cache, no-store</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Pragma</td>
+                                                    <td class="text-wrap">no-cache</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Expires</td>
+                                                    <td class="text-wrap">-1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Upstream-Latency</td>
+                                                    <td class="text-wrap">15</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Proxy-Latency</td>
+                                                    <td class="text-wrap">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Request-Id</td>
+                                                    <td class="text-wrap">dd0e4a33733f9a2ee42ff1400f49a667</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-4791d07b-bf5f-451b-8581-e3652f9606c2" class="prettyPrint">{&quot;code&quot;:&quot;00000&quot;,&quot;message&quot;:&quot;success&quot;,&quot;result&quot;:{&quot;id&quot;:412,&quot;uuid&quot;:&quot;2d49ddb4-8da9-4458-9e35-fd4fcf3e0a34&quot;,&quot;name&quot;:&quot;Xendit - Mlhuillier&quot;,&quot;status&quot;:&quot;ACTIVE&quot;,&quot;channel_type&quot;:&quot;OTC&quot;,&quot;channel_code&quot;:&quot;MLHUILLIER&quot;,&quot;created_at&quot;:&quot;2025-11-19T10:28:41.971538Z&quot;,&quot;updated_at&quot;:&quot;2025-11-19T10:28:41.971538Z&quot;}}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-4791d07b-bf5f-451b-8581-e3652f9606c2">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >Status code is 200</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Response is valid JSON</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >API returned success code</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Result object exists</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel ID is valid</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel status is valid</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel type is valid</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel code is uppercase</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel name should not be empty</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >UUID format validation</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >created_at is valid date</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel should be ACTIVE for transactions</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel type must not be null</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Channel ID must be positive</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >Unexpected fields check</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">15</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div id="folder-61510abf-0278-4a75-9d15-8961bc837c4d" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-61510abf-0278-4a75-9d15-8961bc837c4d" aria-expanded="false" aria-controls="collapse" id="requests-61510abf-0278-4a75-9d15-8961bc837c4d" class="collapsed text-white z-block">
+                    Iteration: 1 - delete Payment channel <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-61510abf-0278-4a75-9d15-8961bc837c4d" class="collapse" aria-labelledby="requests-61510abf-0278-4a75-9d15-8961bc837c4d">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> DELETE</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://dev-api.smartmoney.com.ph//payments/v1/payment_channels/10" target="_blank">https://dev-api.smartmoney.com.ph//payments/v1/payment_channels/10</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 157ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 50B</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar bg-success" style="width: 100%" role="progressbar">
+                                            <h5 class="text-uppercase text-white text-center" style="padding-top:5px;"><strong>No Tests for this request</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">x-client-id</td>
+                                                        <td class="text-wrap">smart_app_backoffice</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Type</td>
+                                                        <td class="text-wrap">application/json</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Authorization</td>
+                                                        <td class="text-wrap">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJub3JtYWwiLCJjbGllbnRfaWQiOiJzbWFydF9hcHBfYmFja29mZmljZSIsImRldmljZV9pZCI6ImRldmljZS1pZCIsImV4cCI6MTc3Mzg2MTU2OCwiaWF0IjoxNzczODE4MzY4LCJpc3MiOiJhdXRoIiwic2NvcGVzIjoiYWdlbnQ6bG9naW4gb2F1dGhfY2xpZW50czp2aWV3IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTptYW5hZ2UgbGVkZ2VyOmxlZGdlcnNfZGVsZXRlIGxlZGdlcjphcGlfa2V5c19pbmRleCBiaWxsZXJzOmFkZCBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfdXBkYXRlIHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19kZWxldGUgcGF5bWVudDp0cmFuc2FjdGlvbnNfaW5kZXggYW5hbHl0aWNzX2NsaWVudDptYW5hZ2UgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX3Nob3cgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2NyZWF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfZGVsZXRlIGFjY291bnQtdHlwZXM6bWFuYWdlIGxlZGdlcjpsZWRnZXJfYWNjb3VudHNfc2hvdyBsZWRnZXI6YXBpX2tleXNfZGVsZXRlIHRlYW0tbWVtYmVyczplZGl0IGFsZXJ0czphZG1pbiBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9jaGVja2VyIHBheW1lbnQ6ZGVkdWN0aW9uc19kZWxldGUgb3JnOnZpZXcgYWNjb3VudC10eXBlczp2aWV3IGN1c3RvbWVyOnVuYmxvY2sga3ljLmlkX2FuZF9zZWxmaWU6dmlldyBwcm9kdWN0LWNhdGVnb3JpZXM6ZG93bmxvYWQgY3VzdG9tZXI6dmlldyBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfc2hvdyBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2NyZWF0ZSBwYXltZW50OmJhbmtzX2RlbGV0ZSBwYXltZW50OnRyYW5zYWN0aW9uc19kb3dubG9hZCB0ZWFtLW1lbWJlcnM6dmlldyBreWMuYWRkcmVzczp2aWV3IGxlZGdlcjpvcmdhbml6YXRpb25zX3Nob3cgY2hhbm5lbHM6dmlldyBhZ2VudDpjcmVhdGUgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfdXBkYXRlIG5vdGlmaWNhdGlvbjphZG1pbiBzdXBlcjphZG1pbiBhbGVydHNfdWc6dmlldyBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19zaG93IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX2luZGV4IG5vdGlmaWNhdGlvbl90ZW1wbGF0ZTp2aWV3IGt5Yy5lbXBsb3ltZW50OnZpZXcgcGF5bWVudDphY2NvdW50c19pbmRleCBiYW5rLWFjY291bnRzOnZpZXcgaW50ZXJuYWwtY2FzaC1hY2NvdW50czp2aWV3IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19pbmRleCBwYXltZW50OmFjY291bnRzX3VwZGF0ZSBwcm9kdWN0LXRhZ3M6ZWRpdCBwcm9kdWN0LXRhZ3M6ZG93bmxvYWQgcGF5bWVudDp0cmFuc2FjdGlvbl9saW1pdHNfZ2V0IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfYmFsYW5jZSBwYXltZW50OmFjY291bnRzX3VuZnJlZXplIGF1ZGl0X3RyYWlsOnZpZXcgYmFuay1hY2NvdW50czplZGl0IHByb2R1Y3RzOnZpZXcgcGF5bWVudDpiYW5rc19pbmRleCBvcmRlcnM6dmlldyBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfY3JlYXRlIHJlZnVuZHM6ZG93bmxvYWQgcGF5bWVudDpkb3dubG9hZHNfc2hvdyBwcm9kdWN0czplZGl0IHBheW1lbnQ6YWNjb3VudF9jb25zdHJhaW50c19kZWxldGUgcGF5bWVudDppbnRlcm5hbF90cmFuc2ZlciBpbnRlcm5hbC1jYXNoLWFjY291bnRzOmVkaXQgbGVkZ2VyOnNldHRsZW1lbnRfY3JlYXRlIHNlbGxlcnM6ZWRpdCBreWM6bWFuYWdlIGxlZGdlcjpiYWxhbmNlX21vbml0b3JfZGVsZXRlIHJvbGVzOnZpZXcgcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX2luZGV4IHRlYW0tbWVtYmVyczppbnZpdGUgbGVkZ2VyOmxlZGdlcnNfdXBkYXRlIGFwaV9rZXlzOm1hbmFnZSBwYXltZW50OmFjY291bnRfdHlwZXNfdXBkYXRlIHJlZnVuZHM6aW5pdGlhdGUgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2luZGV4IHByb2R1Y3QtdGFnczptYW5hZ2UtcHJvZHVjdHMgdmVuZG9yczp2aWV3IHBheW1lbnQ6YmVuZWZpY2lhcmllc19pbmRleCBub3RpZmljYXRpb25fY29uZmlnOnZpZXcgcGF5bWVudDphY2NvdW50X3R5cGVzX2luZGV4IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX3VwZGF0ZSBreWM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfdXBkYXRlIHBheW1lbnQ6YmVuZWZpY2lhcmllc19zaG93IGFjY291bnQtdHlwZXM6ZWRpdCBtZXJjaGFudHM6dmlldyBwYXltZW50OmJhbmtzX2NyZWF0ZSBsZWRnZXI6b3JnYW5pemF0aW9uc19kZWxldGUgbGVkZ2VyOmxlZGdlcnNfY3JlYXRlIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2RlbGV0ZSBwYXltZW50Om1lcmNoYW50X3RyYW5zYWN0aW9uc19pbmRleCBhbmFseXRpY3NfZXZlbnRzOnZpZXcgb3JkZXJzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTphY3Rpb25zIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3VwZGF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfc2hvdyBwcm9kdWN0LXRhZ3M6Y3JlYXRlIGxlZGdlcjpzZXR0bGVtZW50X3Nob3cgYmlsbGVyczp2aWV3IHByb2R1Y3RzOmNyZWF0ZSBub3RpZmljYXRpb25fY29uZmlnOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2RlbGV0ZSBiaWxsZXJzOmVkaXQgYWxlcnRzX3VnOmFkbWluIHJvbGVzOm1hbmFnZSBpbnRlcm5hbC1kZWR1Y3Rpb24tYWNjb3VudHM6ZWRpdCBsZWRnZXI6YXBpX2tleXNfdXBkYXRlIGxlZGdlcjpzZXR0bGVtZW50X2luZGV4IHNlbGxlcnM6dmlldyBwYXltZW50Om1lcmNoYW50X2FjY291bnRzX2JhbGFuY2UgY2hhbm5lbHM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX3N1bW1hcmllc19jbGVhbnVwIHBheW1lbnQ6dHJhbnNhY3Rpb25zX3Nob3cgYWxlcnRzX3VnOm1hbmFnZSBsZWRnZXI6bGVkZ2Vyc19pbmRleCBwcm9kdWN0LXRhZ3M6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfaW5kZXggYmlsbGVyczpkb3dubG9hZCBwYXltZW50OmJhbmtzX3Nob3cgY29uc3VtZXJzOm1hbmFnZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX3VwZGF0ZSBhZ2VudDpyZXNldF9wYXNzd29yZCBhbGVydHM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfY3JlYXRlIHByb2R1Y3QtY2F0ZWdvcmllczpjcmVhdGUgYW5hbHl0aWNzX2NsaWVudDp2aWV3IG1lcmNoYW50czptYW5hZ2UgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfaW5kZXggcGF5bWVudDptZXJjaGFudF9hY2NvdW50c19pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3VwZGF0ZSBvcmc6bWFuYWdlIHBheW1lbnQ6YmVuZWZpY2lhcmllc191cGRhdGUgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX2luZGV4IHBheW1lbnQ6b3JkZXJfcGF5bWVudCBjb25zdW1lcnM6dmlldyBsZWRnZXI6b3JnYW5pemF0aW9uc19jcmVhdGUgcGF5bWVudDp0cmVhc3VyeV9iYW5rc19kZWxldGUgcmV0YWlsOnZpZXcgY3VzdG9tZXI6ZGVhY3RpdmF0ZSBsZWRnZXI6YXBpX2tleXNfc2hvdyBreWMucGVyc29uYWxfaWRlbnRpdHk6dmlldyBjdXN0b21lcjpyZXNldCBreWM6YWRtaW4gdGVhbS1tZW1iZXJzOnJlbW92ZSBwYXltZW50OmFjY291bnRzX2RlbGV0ZSBsZWRnZXI6bGVkZ2Vyc19zaG93IHJldGFpbDpsb2dpbiBsZWRnZXI6YXBpX2tleXNfY3JlYXRlIHByb2R1Y3RzOmRvd25sb2FkIHJpc2tfcHJvZmlsZTp2aWV3IHBheW1lbnQ6dHJlYXN1cnlfYmFua3Nfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2luZGV4IGFuYWx5dGljc19ldmVudHM6bWFuYWdlIHBheW1lbnQ6YWNjb3VudHNfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19yZXZlcnNlIGludGVybmFsLWRlZHVjdGlvbi1hY2NvdW50czp2aWV3IHByb2R1Y3QtY2F0ZWdvcmllczp2aWV3IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19kZWxldGUgcHJvZHVjdC1jYXRlZ29yaWVzOmVkaXQgcGF5bWVudDpiZW5lZmljaWFyaWVzX2NyZWF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfdXBkYXRlIHZlbmRvcnM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uX2VudHJpZXNfaW5kZXggbGVkZ2VyOmxlZGdlcl9hY2NvdW50c191cGRhdGUgcGF5bWVudDphY2NvdW50X3R5cGVzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3Nob3cgbGVkZ2VyOmxlZGdlcl9lbnRyaWVzX3Nob3cgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19jb3VudF9pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2luZGV4IGFwaV9rZXlzOnZpZXcgbGVkZ2VyOmxlZGdlcl90cmFuc2FjdGlvbnNfY3JlYXRlIHBheW1lbnQ6ZGVkdWN0aW9uc19zaG93IHJlZnVuZHM6dmlldyBwYXltZW50OmRvd25sb2Fkc19pbmRleCBwYXltZW50OmFjY291bnRfdHlwZV9tYXBwaW5nc19jcmVhdGUgYWxlcnRzOm1hbmFnZSBwYXltZW50OmJhbmtzX3VwZGF0ZSBwYXltZW50OnBheW1lbnRfY2hhbm5lbHNfaW5kZXggb2F1dGhfY2xpZW50czptYW5hZ2UgbGVkZ2VyOmxlZGdlcl9iYWxhbmNlX2hpc3RvcnlfaW5kZXggcGF5bWVudDpwZXNvbmV0X2JhdGNoX3VwZGF0ZSBwYXltZW50Om1hbnVhbF90cmFuc2Zlcl9tYWtlciBwYXltZW50OmFjY291bnRzX2ZyZWV6ZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX2NyZWF0ZSBwYXltZW50OmFjY291bnRzX2NyZWF0ZSBwYXltZW50OnBlc29uZXRfY3ljbGVfdXBkYXRlIHBheW1lbnQ6dHJlYXN1cnlfYmFua3NfaW5kZXgiLCJzdWIiOiJhZ3RfMTE5Mjc4YzEtOWJmNC00NTBiLWJhYmQtNTRiZDY4YWNmNWJkIiwidG9rZW5faWQiOjY2NDk3LCJ0b2tlbl90eXBlIjoiYWNjZXNzX3Rva2VuIiwidXNlcl9pZCI6IjI2MzAifQ.iIAKDatmtQrhaau52Hl8NIpyTwE3p3a5M9hX1zR9DW0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.39.1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">*/*</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">e66fd0a8-3dd9-4b3c-9b2e-534a2d5c79f5</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">dev-api.smartmoney.com.ph</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Content-Length</td>
+                                                        <td class="text-wrap">96</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Body</h5>
+                                        <div class="dyn-height">
+                                            <pre><code id="copyReqText-2" class="prettyPrint">{
+          &quot;name&quot;: &quot;Xendit - M Lhuillier&quot;,
+          &quot;channel_code&quot;: &quot;MLHUILLIER&quot;,
+          &quot;status&quot;: &quot;ACTIVE&quot;
+        }
+        </code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyReqText-2">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">Date</td>
+                                                    <td class="text-wrap">Wed, 18 Mar 2026 07:30:52 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Type</td>
+                                                    <td class="text-wrap">application/json; charset&#x3D;utf-8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Length</td>
+                                                    <td class="text-wrap">50</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Connection</td>
+                                                    <td class="text-wrap">keep-alive</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Access-Control-Allow-Origin</td>
+                                                    <td class="text-wrap">*</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Frame-Options</td>
+                                                    <td class="text-wrap">DENY</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Security-Policy</td>
+                                                    <td class="text-wrap">default-src &#x27;self&#x27;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-XSS-Protection</td>
+                                                    <td class="text-wrap">1; mode&#x3D;block</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Content-Type-Options</td>
+                                                    <td class="text-wrap">nosniff</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Control</td>
+                                                    <td class="text-wrap">no-cache, no-store</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Pragma</td>
+                                                    <td class="text-wrap">no-cache</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Expires</td>
+                                                    <td class="text-wrap">-1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Upstream-Latency</td>
+                                                    <td class="text-wrap">71</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Proxy-Latency</td>
+                                                    <td class="text-wrap">4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">X-Kong-Request-Id</td>
+                                                    <td class="text-wrap">9224907cb4aed7537c26170122ac2e7f</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-40c198aa-6ea5-40bf-ad69-7b9ee276c8c7" class="prettyPrint">{&quot;code&quot;:&quot;00000&quot;,&quot;message&quot;:&quot;success&quot;,&quot;result&quot;:null}</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-40c198aa-6ea5-40bf-ad69-7b9ee276c8c7">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <h5 class="alert alert-success text-uppercase text-center">No Tests for this request</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<!-- Set slider initial position depending on the localstorage state -->
+
+<script>
+(function () {
+  var sliderChecked = true;
+  if (localStorage.getItem('theme') === 'theme-light') {
+    setTheme('theme-light');
+    sliderChecked = false;
+  } else {
+    setTheme('theme-dark');
+    sliderChecked = true;
+  }
+  $(document).ready( function () {
+    document.getElementById('slider').checked = sliderChecked;
+  });
+})();
+</script>
+
+<!-- Data Table Configuration -->
+
+<script>
+$(document).ready( function () {
+    $('.datatable').DataTable({
+        "retrieve": true,
+        "paging": false,
+        "info": false,
+        "fixedColumns":   {
+            "heightMatch": 'none'
+        }
+    });
+});
+</script>
+
+<!-- Tooltip Configuration -->
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger : 'hover'
+    })
+})
+</script>
+
+<!-- Show/Hide The Folders -->
+
+<script>
+$('#openAll').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#folder-3feb49e8-dd7e-431c-9da1-efbfade94b0b-iteration-0').removeClass('collapsed')
+            $('#folder-collapse-3feb49e8-dd7e-431c-9da1-efbfade94b0b-iteration-0').addClass('show')
+        $('#openAll').html("Collapse Folders");
+        break;
+    case 2:
+            $('#folder-3feb49e8-dd7e-431c-9da1-efbfade94b0b-iteration-0').addClass('collapsed')
+            $('#folder-collapse-3feb49e8-dd7e-431c-9da1-efbfade94b0b-iteration-0').removeClass('show')
+        $('#openAll').html("Expand Folders");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Requests -->
+
+<script>
+$('#openAllRequests').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#requests-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('collapsed')
+            $('#collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('collapsed')
+            $('#requests-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('show')
+            $('#collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('show')
+            $('#requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('collapsed')
+            $('#collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('collapsed')
+            $('#requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('show')
+            $('#collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('show')
+            $('#requests-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('collapsed')
+            $('#collapse-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('collapsed')
+            $('#requests-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('show')
+            $('#collapse-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('show')
+        $('#openAllRequests').html("Collapse Requests");
+        break;
+    case 2:
+            $('#requests-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('collapsed')
+            $('#collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('collapsed')
+            $('#requests-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('show')
+            $('#collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('show')
+            $('#requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('collapsed')
+            $('#collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('collapsed')
+            $('#requests-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('show')
+            $('#collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('show')
+            $('#requests-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('collapsed')
+            $('#collapse-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('collapsed')
+            $('#requests-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('show')
+            $('#collapse-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('show')
+        $('#openAllRequests').html("Expand Requests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Skipped Tests -->
+
+<script>
+$('#openAllSkipped').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#skipped-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('collapsed')
+            $('#skipped-collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('collapsed')
+            $('#skipped-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('show')
+            $('#skipped-collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('show')
+            $('#skipped-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('collapsed')
+            $('#skipped-collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('collapsed')
+            $('#skipped-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('show')
+            $('#skipped-collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('show')
+            $('#skipped-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('collapsed')
+            $('#skipped-collapse-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('collapsed')
+            $('#skipped-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('show')
+            $('#skipped-collapse-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('show')
+        $('#openAllSkipped').html("Collapse All Skipped Tests");
+        break;
+    case 2:
+            $('#skipped-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('collapsed')
+            $('#skipped-collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').addClass('collapsed')
+            $('#skipped-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('show')
+            $('#skipped-collapse-f9ba8744-8e31-449c-80c6-343d271ae52c').removeClass('show')
+            $('#skipped-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('collapsed')
+            $('#skipped-collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').addClass('collapsed')
+            $('#skipped-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('show')
+            $('#skipped-collapse-8ac728b7-779a-4ec3-8ec5-105ed88f9b45').removeClass('show')
+            $('#skipped-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('collapsed')
+            $('#skipped-collapse-61510abf-0278-4a75-9d15-8961bc837c4d').addClass('collapsed')
+            $('#skipped-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('show')
+            $('#skipped-collapse-61510abf-0278-4a75-9d15-8961bc837c4d').removeClass('show')
+        $('#openAllSkipped').html("Expand All Skipped Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Failures -->
+
+<script>
+$('#openAllFailed').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+let failedItemContent
+let failedItemHeading
+switch (clickCount){
+    case 1:
+        $('#openAllFailed').html("Collapse All Failed Tests");
+        break;
+    case 2:
+        $('#openAllFailed').html("Expand All Failed Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Pretty Print the Response Body-->
+
+<script>
+function isJSON(data)
+{
+    var ret = true;
+    try {
+            JSON.parse(data);
+    }catch(e) {
+            ret = false;
+    }
+    return ret;
+}
+
+function isXML(data)
+{
+    return (data.length > 0 && data[0] === '<');
+}
+
+// see https://gist.github.com/sente/1083506/d2834134cd070dbcc08bf42ee27dabb746a1c54d#gistcomment-2254622
+function formatXML(data) {
+    const PADDING = ' '.repeat(2); // set desired indent size here
+    const reg = /(>)(<)(\/*)/g;
+    let pad = 0;
+    xml = data.replace(reg, '$1\r\n$2$3');
+
+    return xml.split('\r\n').map((node, index) => {
+        let indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+            indent = 0;
+        } else if (node.match(/^<\/\w/) && pad > 0) {
+            pad -= 1;
+        } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+            indent = 1;
+        } else {
+            indent = 0;
+        }
+
+        pad += indent;
+        return PADDING.repeat(pad - indent) + node;
+    }).join('\r\n');
+}
+
+$(".prettyPrint").each(function () {
+        var data = $(this).text();
+        // Verify whether data is JSON
+        if(isJSON(data))
+        {
+                obj = JSON.parse(data);
+                data = JSON.stringify(obj, null, 2);
+        }
+        else if(isXML(data)) {
+            data = formatXML(data);
+        }
+        $(this).text(data);
+});
+</script>
+
+
+<!-- Copy Response Body To Clipboard -->
+
+<script>
+    var clipboard = new ClipboardJS('.copyButton');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-success text-white")
+        e.trigger.textContent = '✔ Copied!';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-success text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+    clipboard.on('error', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-danger text-white")
+        e.trigger.textContent = '✗ Not Copied';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-danger text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+
+</script>
+
+<!-- Render the Description Markdown and link in the test failures -->
+
+<script>
+    const remarkable = new Remarkable();
+
+    const descriptions = document.querySelectorAll(".renderMarkdown");
+    descriptions.forEach(description => {
+        description.innerHTML = renderHtmlFromMarkdown(description.textContent);
+    });
+    function renderHtmlFromMarkdown(markdown) {
+        return remarkable.render(trim(markdown));
+    }
+    function trim(string) {
+        return string ? string.replace(/^ +| +$/gm, "") : string;
+    }
+</script>
+
+<!-- Show/Hide The Toggles When Scrolling The Page -->
+
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("topOfRequestsScreen").style.display = "block";
+    document.getElementById("topOfFailuresScreen").style.display = "block";
+    document.getElementById("topOfSkippedScreen").style.display = "block";
+    document.getElementById("openAll").style.display = "none";
+    document.getElementById("openAllRequests").style.display = "none";
+
+
+  } else {
+    document.getElementById("topOfRequestsScreen").style.display = "none";
+    document.getElementById("topOfFailuresScreen").style.display = "none";
+    document.getElementById("topOfSkippedScreen").style.display = "none";
+    document.getElementById("openAll").style.display = "block";
+    document.getElementById("openAllRequests").style.display = "block";
+
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<!-- Creates The Iteration Tabs -->
+
+<script type="text/javascript">
+    "use strict";
+
+window.onload = function () {
+
+  // set display for all blocks of response
+  var allItems = document.querySelectorAll('[class*=iteration-]');
+  allItems.forEach(function(elem){
+    elem.style.display = 'block';
+  });
+
+   
+  let totalIterations = 1;
+   
+
+  let menu = document.querySelector('#execution-menu .nav');
+
+  for(var i = 0; i < totalIterations; i++)
+  {
+    let li = document.createElement('li');
+    li.appendChild(document.createTextNode((i + 1)));
+    li.setAttribute('id', 'iteration-' + i);
+    li.classList.add("custom-tab");
+    li.classList.add("itPassed");
+
+    li.addEventListener('click', function() {
+      //set display to none for all except row
+      let allItems = document.querySelectorAll('[class*=iteration-]:not(.row)');
+      allItems.forEach(function(elem) {
+        elem.style.display = 'none';
+      })
+
+      let allMenus = document.querySelectorAll('[id*=iteration-]');
+      allMenus.forEach(function(elem){
+        elem.style.borderBottom = 'none';
+      })
+
+      this.style.borderBottom = 'solid 3px #032a33';
+
+      let items = document.querySelectorAll("." + this.id + ':not(.row)');
+      items.forEach(function(elem) {
+        elem.style.display = elem.style.display == 'block' ? 'none' : 'block';
+      })
+    });
+    menu.appendChild(li);
+  }
+
+  //shows first tab data
+  document.getElementById('iteration-0').click();
+  document.getElementById('iterationSelected').innerHTML = `Iteration ${document.getElementById('iteration-0').innerHTML} selected`
+
+}
+</script>
+
+<!-- Create the Selected Iteration Label -->
+
+<script>
+$(document).ready(function(){
+    $(function() {
+        $("#iterationList li").click(function() {
+            document.getElementById('iterationSelected').innerHTML = "Iteration " + this.innerHTML + " selected"
+        });
+    });
+});
+</script>
+
+<!-- Filter Action for the Iterations -->
+
+<script>
+$("#filterInput").on("input paste", function() {
+    var value = $(this).val();
+    $("#iterationList li").filter(function() {
+	    $("#showOnlyFailures").data("clickCount") ? $("#showOnlyFailures").click():null;
+        $(this).toggle($(this).text().indexOf(value) > -1)
+    });
+});
+</script>
+
+<!-- Showing the Failed Interations -->
+
+<script>
+$('#showOnlyFailures').on('click', function(e) {
+    let clickCount = $(this).data("clickCount") || 1
+	$("#filterInput").val()!="" && clickCount==1 ? $("#filterInput").val('').trigger('input'): null;
+    let selectedIteration = $('#iterationList li').filter(function () {
+        return $(this).css('border-bottom').indexOf("solid") > -1 && $(this).hasClass('itFailed');
+    });
+    selectedIteration.length || clickCount > 1 ? null : $("#iterationList li.itFailed")[0].click()
+    $("#iterationList li.itPassed").toggle()
+    $("div.bg-success [id*=requests]").parents('[class^="row iteration-"]').toggle();
+    clickCount = clickCount > 1 ? 1 : ++clickCount;
+    clickCount > 1 ? $("#showOnlyFailures").html("Show All Iterations") : $("#showOnlyFailures").html("Show Failed Iterations");
+    $(this).data("clickCount", clickCount)
+})
+</script>
+</body>
+</html>
