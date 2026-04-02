@@ -4,7 +4,9 @@ const dashboardData = [
     cards: [
       {
         title: "Reports",
-        links: [{ label: "View Report", href: "/services/auth/report.html", tag: "latest" }],
+        links: [{ label: "Old Report", href: "/services/auth/report.html", },
+          { label: "Latest", href: "/services/auth/report2.html", tag: "new" }
+        ],
       },
     ],
   },
