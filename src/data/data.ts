@@ -137,6 +137,23 @@ const dashboardData = [
         // },
       ],
     },
+      {
+      title: "Notification-alert-channel",
+      links: [
+        {
+          label: "Latest",
+          href: "/services/notification-service/notification-alert-channel.html",
+          tag: "new",
+        },
+        // {
+        //   label: "2026-03-30",
+        //   href: "/services/notification-service/template/history/2026-03-30.html",
+        // },
+      ],
+    },
+
+
+
   ],
 }
 ];
