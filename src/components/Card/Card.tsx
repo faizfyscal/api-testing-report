@@ -2,8 +2,8 @@ import LinkList from "../LinkList.tsx/LinkList";
 
 export default function Card({ card }: any) {
   return (
-    <div className="bg-white rounded-xl px-5 py-4 border border-gray-200">
-      <div className="text-sm font-semibold text-gray-700 mb-2.5">
+    <div className="bg-white rounded-xl px-5 py-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+      <div className="text-sm font-semibold text-slate-700 mb-2.5">
         {card.title}
       </div>
 
