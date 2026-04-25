@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group-token-generation" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="token-gen-1" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:43:08.093548106</stringProp>
+          <stringProp name="HTTPSampler.domain">dev-api.smartmoney.com.ph</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/workflows/public/v1/initiate</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;workflow_name&quot;: &quot;agent_signin&quot;,&#xd;
+    &quot;input_params&quot;: {&#xd;
+        &quot;email&quot;: &quot;suyash@aventistechnology.com&quot;,&#xd;
+        &quot;encrypted_password&quot;: &quot;PUQYnyowaiZyCvEMIcRTgQkriq8Te9uGgEazq9G33anULS2cbkUM6qi+EGjSdD3IlcrPSMHI8+sGmcCoppPJRi4+XRe1L7Q9FQHJbsacBE9pnymExaZ2E949Xw16EbqJFe1qkNKYfpzmSDiqYeAiSRdIU5my8Xhajbup6z78nVvTB4SAk9xmrGZ0TrIBEPMM/FtL6a1AxKAzMFHdS1jDvT3+xXpdaiOeI+j6vTmi24rl+CXLjkJj8+kt/6QqBfGdS31rD4u1VBGnjOA8JaBWEy5jiy+1gA7bQSw8SRIFf2wOZ+kWbIy+r/PPBp8zVtln2sdYw3VFUlHIaGpK56IT8A==&quot;&#xd;
+    }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="x-user-identifier-type" elementType="Header">
+                <stringProp name="Header.name">x-user-identifier-type</stringProp>
+                <stringProp name="Header.value">email</stringProp>
+              </elementProp>
+              <elementProp name="x-user-identifier-value" elementType="Header">
+                <stringProp name="Header.name">x-user-identifier-value</stringProp>
+                <stringProp name="Header.value">suyash@aventistechnology.com</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:43:08.096125951</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">workflow_id</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.workflow_id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="token-gen-2" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:44:09.127137927</stringProp>
+          <stringProp name="HTTPSampler.domain">dev-api.smartmoney.com.ph</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/workflows/public/v1/execute</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;input_params&quot;: {&#xd;
+    &quot;encrypted_otp&quot;: &quot;DVhgOzua/e9FoTyYg1SaFsSsmvN+oVVN5Xb62NQZPoc/DU937/0YNee0+XtojI7rncmP9TcbLYIIfvN9J5czdhnAitkfyS4aoSvkXNv4kvJAmADuYGiwI4R51pS4+j0YzvBCB2LCFGQxm9cIj4iff/Zxk1FewRgvFeidZ8PMwid+O0iGuBciyuSdZeiUXVUdAO+EPTFKGdBqfZs1HihyueocfiVSIsyp33G6yVbzbd+3zMcVG1A2WsK/s0bFzqbsLtrZ2ukuAp3JbqduV5J5caRRQld0UdHaVfqixZeM520wZaLgocf1pYOrqITAK8EYe5d6HNoQAP+rDa6/K600JQ==&quot;&#xd;
+    },&#xd;
+    &quot;workflow_name&quot;: &quot;agent_signin&quot;,&#xd;
+    &quot;workflow_id&quot;: &quot;${workflow_id}&quot;,&#xd;
+    &quot;step&quot;: &quot;verify_otp_get_token&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="x-workflow-id" elementType="Header">
+                <stringProp name="Header.name">x-workflow-id</stringProp>
+                <stringProp name="Header.value">${workflow_id}</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:44:09.127284951</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.result.token</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">props.put(&quot;TOKEN&quot;, vars.get(&quot;token&quot;))</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group-token-generation-fyscal" enabled="true">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="token-gen-1" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:43:08.093548106</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/workflows/public/v1/initiate</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;workflow_name&quot;:&quot;agent_signin&quot;,&quot;input_params&quot;:{&quot;email&quot;:&quot;suyash@fyscaltech.com&quot;,&quot;encrypted_password&quot;:&quot;MSUz3CHEB+wJpkBf2mLsNEDMOqMPrnGrMUfXPMxWxUsvLh46FWVjhC5mqr+oGrsLL4cv7b2snLZSQcTy9gqh5OiEK8TVYAaCuSl7oQ4Lxuw3rQ7Jjij01mn+1gQvNPLPnnMkl7p4tOZdCFRcCdkYie0nUlfByz5jcAr/0ZsljXm/ip8+8yj7d0iIFWmyvWAcad43WtC5K9v6ubiapk60Jz5veM/Ot6Zwb3J6th6/SOXbYdG/FD8glHBGjFOHfBDARl6T8KSP0AqmPnDay1BZZ6qGrmwJfGAK1Jl3pTNz+IIqbENWYS2uxTBLbnTWSb0p2qGPAhHWx0ktFDcYq+Dzig==&quot;}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="x-user-identifier-type" elementType="Header">
+                <stringProp name="Header.name">x-user-identifier-type</stringProp>
+                <stringProp name="Header.value">email</stringProp>
+              </elementProp>
+              <elementProp name="x-user-identifier-value" elementType="Header">
+                <stringProp name="Header.name">x-user-identifier-value</stringProp>
+                <stringProp name="Header.value">suyash@fyscaltech.com</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:43:08.096125951</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">workflow_id</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.workflow_id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="token-gen-2" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:44:09.127137927</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/workflows/public/v1/execute</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;input_params&quot;: {&#xd;
+    &quot;encrypted_otp&quot;: &quot;DVhgOzua/e9FoTyYg1SaFsSsmvN+oVVN5Xb62NQZPoc/DU937/0YNee0+XtojI7rncmP9TcbLYIIfvN9J5czdhnAitkfyS4aoSvkXNv4kvJAmADuYGiwI4R51pS4+j0YzvBCB2LCFGQxm9cIj4iff/Zxk1FewRgvFeidZ8PMwid+O0iGuBciyuSdZeiUXVUdAO+EPTFKGdBqfZs1HihyueocfiVSIsyp33G6yVbzbd+3zMcVG1A2WsK/s0bFzqbsLtrZ2ukuAp3JbqduV5J5caRRQld0UdHaVfqixZeM520wZaLgocf1pYOrqITAK8EYe5d6HNoQAP+rDa6/K600JQ==&quot;&#xd;
+    },&#xd;
+    &quot;workflow_name&quot;: &quot;agent_signin&quot;,&#xd;
+    &quot;workflow_id&quot;: &quot;${workflow_id}&quot;,&#xd;
+    &quot;step&quot;: &quot;verify_otp_get_token&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="x-workflow-id" elementType="Header">
+                <stringProp name="Header.name">x-workflow-id</stringProp>
+                <stringProp name="Header.value">${workflow_id}</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T11:44:09.127284951</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.result.token</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">props.put(&quot;TOKEN&quot;, vars.get(&quot;token&quot;))</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Ledger Transaction-1 hr">
+        <intProp name="ThreadGroup.num_threads">417</intProp>
+        <intProp name="ThreadGroup.ramp_time">120</intProp>
+        <longProp name="ThreadGroup.duration">3600</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="transaction">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.365144408</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/ledger/v1/formatted/api/ledger_transactions</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;status&quot;: &quot;posted&quot;,&#xd;
+&quot;external_id&quot;: &quot;txn_${__time(YMDHMSSSS)}_${__Random(100000,999999)}&quot;,&#xd;
+    &quot;description&quot;: &quot;Sample ledger transaction description&quot;,&#xd;
+    &quot;ledger_entries&quot;: [&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;credit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${credit_id}&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;debit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${debit_id}&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="x-scope" elementType="Header">
+                <stringProp name="Header.name">x-scope</stringProp>
+                <stringProp name="Header.value">ledger:ledger_transactions_create</stringProp>
+              </elementProp>
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${__P(TOKEN)}</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.366213452</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-credit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/credit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">credit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-debit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/debit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">debit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">if (!prev.isSuccessful()) {
+    def file = new File(&quot;/home/kelly/smart-money-load-testing/ledger-performance/debug3.txt&quot;)
+
+    file.getParentFile().mkdirs()
+
+    synchronized(this) {
+        file &lt;&lt; &quot;----- FAILED REQUEST -----\n&quot;
+        file &lt;&lt; &quot;Time: &quot; + new Date().format(&quot;yyyy-MM-dd HH:mm:ss.SSS&quot;) + &quot;\n&quot;
+        file &lt;&lt; &quot;Thread: &quot; + Thread.currentThread().getName() + &quot;\n\n&quot;
+
+        file &lt;&lt; &quot;Request:\n&quot; + prev.getSamplerData() + &quot;\n\n&quot;
+        file &lt;&lt; &quot;Response:\n&quot; + prev.getResponseDataAsString() + &quot;\n\n&quot;
+        file &lt;&lt; &quot;---------------------------------\n\n&quot;
+    }
+}</stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller" enabled="false">
+          <intProp name="ThroughputController.style">1</intProp>
+          <boolProp name="ThroughputController.perThread">false</boolProp>
+          <intProp name="ThroughputController.maxThroughput">1</intProp>
+          <FloatProperty>
+            <name>ThroughputController.percentThroughput</name>
+            <value>1.0</value>
+            <savedValue>0.0</savedValue>
+          </FloatProperty>
+        </ThroughputController>
+        <hashTree/>
+        <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <intProp name="calcMode">0</intProp>
+          <doubleProp>
+            <name>throughput</name>
+            <value>10020.0</value>
+            <savedValue>0.0</savedValue>
+          </doubleProp>
+        </ConstantThroughputTimer>
+        <hashTree/>
+      </hashTree>
+      <kg.apc.jmeter.threads.SteppingThreadGroup guiclass="kg.apc.jmeter.threads.SteppingThreadGroupGui" testclass="kg.apc.jmeter.threads.SteppingThreadGroup" testname="jp@gc - Stepping Thread Group-fyscal" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.num_threads">300</stringProp>
+        <stringProp name="Threads initial delay">5</stringProp>
+        <stringProp name="Start users count">50</stringProp>
+        <stringProp name="Start users count burst">50</stringProp>
+        <stringProp name="Start users period">10</stringProp>
+        <stringProp name="Stop users count">20</stringProp>
+        <stringProp name="Stop users period">5</stringProp>
+        <stringProp name="flighttime">300</stringProp>
+        <stringProp name="rampUp">10</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </kg.apc.jmeter.threads.SteppingThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="transaction" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.365144408</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/ledger/v1/formatted/api/ledger_transactions</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;status&quot;: &quot;posted&quot;,&#xd;
+    &quot;external_id&quot;: &quot;txn_${__time(YMDHMS)}_${__Random(1000,9999)}&quot;,&#xd;
+    &quot;description&quot;: &quot;Sample ledger transaction description&quot;,&#xd;
+    &quot;ledger_entries&quot;: [&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;credit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${credit_id}&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;debit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${debit_id}&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="x-scope" elementType="Header">
+                <stringProp name="Header.name">x-scope</stringProp>
+                <stringProp name="Header.value">ledger:ledger_transactions_create</stringProp>
+              </elementProp>
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${__P(TOKEN)}</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.366213452</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-credit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/credit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">credit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-debit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/debit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">debit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+        </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">DEBUG_FILE = /home/kelly/smart-money-load-testing/ledger-performance/debug_${__time(YMDHMS)}.txt
+if (!prev.isSuccessful()) {
+    def file = new File(&quot;DEBUG_FILE&quot;)
+
+    file &lt;&lt; &quot;----- FAILED REQUEST -----\n&quot;
+    file &lt;&lt; &quot;Time: &quot; + new Date().format(&quot;yyyy-MM-dd HH:mm:ss.SSS&quot;) + &quot;\n&quot;
+    file &lt;&lt; &quot;Thread: &quot; + Thread.currentThread().getName() + &quot;\n\n&quot;
+
+    file &lt;&lt; &quot;Request:\n&quot; + prev.getSamplerData() + &quot;\n\n&quot;
+    file &lt;&lt; &quot;Response:\n&quot; + prev.getResponseDataAsString() + &quot;\n\n&quot;
+    file &lt;&lt; &quot;---------------------------------\n\n&quot;
+}</stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
+      </hashTree>
+      <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="bzm - Concurrency Thread Group" enabled="false">
+        <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="TargetLevel">200</stringProp>
+        <stringProp name="RampUp">300</stringProp>
+        <stringProp name="Steps"></stringProp>
+        <stringProp name="Hold">900</stringProp>
+        <stringProp name="LogFilename"></stringProp>
+        <stringProp name="Iterations"></stringProp>
+        <boolProp name="same_user_on_next_iteration">false</boolProp>
+        <stringProp name="Unit">M</stringProp>
+      </com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup>
+      <hashTree>
+        <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="jp@gc - Throughput Shaping Timer" enabled="true">
+          <collectionProp name="load_profile">
+            <collectionProp name="1542706273">
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="1542706273">
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="1573804078">
+              <stringProp name="1629">30</stringProp>
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="1582368107">
+              <stringProp name="1691">50</stringProp>
+              <stringProp name="1784">80</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="1102873385">
+              <stringProp name="1784">80</stringProp>
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="48873">180</stringProp>
+            </collectionProp>
+            <collectionProp name="-1097555838">
+              <stringProp name="48625">100</stringProp>
+              <stringProp name="50547">300</stringProp>
+              <stringProp name="50547">300</stringProp>
+            </collectionProp>
+          </collectionProp>
+        </kg.apc.jmeter.timers.VariableThroughputTimer>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="transaction" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.365144408</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/ledger/v1/formatted/api/ledger_transactions</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;status&quot;: &quot;posted&quot;,&#xd;
+    &quot;external_id&quot;: &quot;txn_${__time(YMDHMS)}_${__Random(1000,9999)}&quot;,&#xd;
+    &quot;description&quot;: &quot;Sample ledger transaction description&quot;,&#xd;
+    &quot;ledger_entries&quot;: [&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;credit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${credit_id}&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;debit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${debit_id}&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="x-scope" elementType="Header">
+                <stringProp name="Header.name">x-scope</stringProp>
+                <stringProp name="Header.value">ledger:ledger_transactions_create</stringProp>
+              </elementProp>
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${__P(TOKEN)}</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.366213452</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-credit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/credit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">credit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-debit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/debit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">debit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="jp@gc - Ultimate Thread Group" enabled="false">
+        <collectionProp name="ultimatethreadgroupdata"/>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+      </kg.apc.jmeter.threads.UltimateThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="transaction" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.365144408</stringProp>
+          <stringProp name="HTTPSampler.domain">stg-api.fyscal.ai</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/ledger/v1/formatted/api/ledger_transactions</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;status&quot;: &quot;posted&quot;,&#xd;
+    &quot;external_id&quot;: &quot;txn_${__time(YMDHMS)}_${__Random(1000,9999)}&quot;,&#xd;
+    &quot;description&quot;: &quot;Sample ledger transaction description&quot;,&#xd;
+    &quot;ledger_entries&quot;: [&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;credit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${credit_id}&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;debit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${debit_id}&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="x-scope" elementType="Header">
+                <stringProp name="Header.name">x-scope</stringProp>
+                <stringProp name="Header.value">ledger:ledger_transactions_create</stringProp>
+              </elementProp>
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${__P(TOKEN)}</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.366213452</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-credit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/credit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">true</boolProp>
+            <stringProp name="variableNames">credit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-debit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/debit_accounts.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">true</boolProp>
+            <stringProp name="variableNames">debit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+        </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">if (!prev.isSuccessful()) {
+	def timestamp = new Date().format(&quot;yyyyMMdd_HHmmss&quot;)
+	def file = new File(&quot;/home/kelly/smart-money-load-testing/ledger-performance/debug_${timestamp}.txt&quot;)
+    file &lt;&lt; &quot;Request:\n&quot; + prev.getSamplerData() + &quot;\n&quot;
+    file &lt;&lt; &quot;Response:\n&quot; + prev.getResponseDataAsString() + &quot;\n\n&quot;
+}</stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
+      </hashTree>
+      <kg.apc.jmeter.threads.SteppingThreadGroup guiclass="kg.apc.jmeter.threads.SteppingThreadGroupGui" testclass="kg.apc.jmeter.threads.SteppingThreadGroup" testname="jp@gc - Stepping Thread Group" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.num_threads">500</stringProp>
+        <stringProp name="Threads initial delay">5</stringProp>
+        <stringProp name="Start users count">20</stringProp>
+        <stringProp name="Start users count burst">50</stringProp>
+        <stringProp name="Start users period">5</stringProp>
+        <stringProp name="Stop users count">10</stringProp>
+        <stringProp name="Stop users period">5</stringProp>
+        <stringProp name="flighttime">60</stringProp>
+        <stringProp name="rampUp">10</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </kg.apc.jmeter.threads.SteppingThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="transaction" enabled="true">
+          <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.365144408</stringProp>
+          <stringProp name="HTTPSampler.domain">dev-api.smartmoney.com.ph</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/ledger/v1/formatted/api/ledger_transactions</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;status&quot;: &quot;posted&quot;,&#xd;
+    &quot;external_id&quot;: &quot;txn_${__time(YMDHMS)}_${__Random(1000,9999)}&quot;,&#xd;
+    &quot;description&quot;: &quot;Sample ledger transaction description&quot;,&#xd;
+    &quot;ledger_entries&quot;: [&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;credit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${credit_id}&quot;&#xd;
+        },&#xd;
+        {&#xd;
+            &quot;amount&quot;: 50,&#xd;
+            &quot;direction&quot;: &quot;debit&quot;,&#xd;
+            &quot;ledger_account_id&quot;: &quot;${debit_id}&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP HeaderManager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="x-client-id" elementType="Header">
+                <stringProp name="Header.name">x-client-id</stringProp>
+                <stringProp name="Header.value">smart_app_backoffice</stringProp>
+              </elementProp>
+              <elementProp name="x-scope" elementType="Header">
+                <stringProp name="Header.name">x-scope</stringProp>
+                <stringProp name="Header.value">ledger:ledger_transactions_create</stringProp>
+              </elementProp>
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJub3JtYWwiLCJjbGllbnRfaWQiOiJzbWFydF9hcHBfYmFja29mZmljZSIsImRldmljZV9pZCI6IiIsImV4cCI6MTc3NjM4MDU1OSwiaWF0IjoxNzc2MzM3MzU5LCJpc3MiOiJhdXRoIiwic2NvcGVzIjoiYWdlbnQ6bG9naW4gbm90aWZpY2F0aW9uX3RlbXBsYXRlOm1hbmFnZSBsZWRnZXI6bGVkZ2Vyc19kZWxldGUgbGVkZ2VyOmFwaV9rZXlzX2luZGV4IGFsZXJ0OmFsbF9hbGVydHNfdmlld19hbmRfc2VhcmNoIHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19kZWxldGUgcGF5bWVudDp0cmFuc2FjdGlvbnNfaW5kZXggcGF5bWVudDp0cmFuc2FjdGlvbl9yZXBvcnRzX3Nob3cgcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX2NyZWF0ZSBwYXltZW50OmFjY291bnRfdHlwZXNfZGVsZXRlIGFsZXJ0OmRpc3Bvc2l0aW9uX2ZhbHNlX21hdGNoIHRlYW0tbWVtYmVyczplZGl0IGFsZXJ0czphZG1pbiBhcGlzOm1hbmFnZSBjdXN0b21lcjp1bmJsb2NrIGFjY291bnQtdHlwZXM6dmlldyBhbGVydDphc3NpZ25fZGV0YWlsIHByb2R1Y3QtY2F0ZWdvcmllczpkb3dubG9hZCBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfc2hvdyBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX2NyZWF0ZSBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2NyZWF0ZSB0ZWFtLW1lbWJlcnM6dmlldyBjaGFubmVsczp2aWV3IGxlZGdlcjpvcmdhbml6YXRpb25zX3Nob3cgdG9rZW46Z2VuZXJhdGUgbm90aWZpY2F0aW9uOmFkbWluIGFsZXJ0c191Zzp2aWV3IHBheW1lbnQ6bWVyY2hhbnRfdHJhbnNhY3Rpb25zX3Nob3cgbGVkZ2VyOmxlZGdlcl90cmFuc2FjdGlvbnNfaW5kZXggYWxlcnQ6dmlld19zdGF0cyBpbnRlcm5hbC1jYXNoLWFjY291bnRzOnZpZXcgYmFuay1hY2NvdW50czp2aWV3IHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX3Nob3cgcHJvZHVjdC10YWdzOmRvd25sb2FkIHBheW1lbnQ6YWNjb3VudHNfdW5mcmVlemUgYmFuay1hY2NvdW50czplZGl0IHBheW1lbnQ6cGF5bWVudF9jaGFubmVsc19jcmVhdGUgaW50ZXJuYWwtY2FzaC1hY2NvdW50czplZGl0IGxlZGdlcjpzZXR0bGVtZW50X2NyZWF0ZSBoaWVyYXJjaHk6bWFuYWdlIGt5YzptYW5hZ2UgbGVkZ2VyOmJhbGFuY2VfbW9uaXRvcl9kZWxldGUgcm9sZXM6dmlldyBwYXltZW50OnRyYW5zYWN0aW9uX3JlcG9ydHNfaW5kZXgga3ljLmFkZHJlc3M6dmlldyBwYXltZW50OmFjY291bnRfdHlwZXNfdXBkYXRlIGFwaV9rZXlzOm1hbmFnZSBwcm9kdWN0LXRhZ3M6bWFuYWdlLXByb2R1Y3RzIHZlbmRvcnM6dmlldyBwYXltZW50OmJlbmVmaWNpYXJpZXNfaW5kZXggbm90aWZpY2F0aW9uX2NvbmZpZzp2aWV3IHBheW1lbnQ6YWNjb3VudF90eXBlc19pbmRleCBreWM6dmlldyBwYXltZW50OmRlZHVjdGlvbnNfdXBkYXRlIGFjY291bnQtdHlwZXM6ZWRpdCBhbGVydDplc2NhbGF0ZWQgbGVkZ2VyOm9yZ2FuaXphdGlvbnNfZGVsZXRlIGFuYWx5dGljc19ldmVudHM6dmlldyBsZWRnZXI6c2V0dGxlbWVudF9zaG93IGJpbGxlcnM6dmlldyBwYXltZW50OmJlbmVmaWNpYXJpZXNfZGVsZXRlIGJpbGxlcnM6ZWRpdCBpbnRlcm5hbC1kZWR1Y3Rpb24tYWNjb3VudHM6ZWRpdCBsZWRnZXI6YXBpX2tleXNfdXBkYXRlIGxlZGdlcjpzZXR0bGVtZW50X2luZGV4IGxlZGdlcjpsZWRnZXJzX2luZGV4IHBheW1lbnQ6ZGVkdWN0aW9uc19pbmRleCBiaWxsZXJzOmRvd25sb2FkIGFsZXJ0OmFwcHJvdmVfcmVqZWN0X2Rpc3Bvc2l0aW9uIGFsZXJ0OmJ1bGtfc2VsZWN0X2FuZF9hc3NpZ24gYWdlbnQ6cmVzZXRfcGFzc3dvcmQgcHJvZHVjdC1jYXRlZ29yaWVzOmNyZWF0ZSBtZXJjaGFudHM6bWFuYWdlIGxlZGdlcjpvcmdhbml6YXRpb25zX2luZGV4IHBheW1lbnQ6YmVuZWZpY2lhcmllc191cGRhdGUgYWxlcnQ6ZXNjYWxhdGUgcGF5bWVudDpvcmRlcl9wYXltZW50IGxlZGdlcjpvcmdhbml6YXRpb25zX2NyZWF0ZSBhbGVydDp2aWV3X2RldGFpbCBwYXltZW50OmFjY291bnRzX2RlbGV0ZSBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX3Nob3cgYW5hbHl0aWNzX2V2ZW50czptYW5hZ2UgYXBpczp2aWV3IHBheW1lbnQ6YWNjb3VudHNfc2hvdyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc19yZXZlcnNlIGludGVybmFsLWRlZHVjdGlvbi1hY2NvdW50czp2aWV3IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfaW5kZXggcGF5bWVudDpwYXltZW50X2NoYW5uZWxzX3VwZGF0ZSB2ZW5kb3JzOmVkaXQgcGF5bWVudDp0cmFuc2FjdGlvbl9lbnRyaWVzX2luZGV4IHBheW1lbnQ6YWNjb3VudF90eXBlc19jcmVhdGUgbGVkZ2VyOmJhbGFuY2VfbW9uaXRvcl9zaG93IGFsZXJ0Om15X3F1ZXVlX3ZpZXdfYW5kX3NlYXJjaCBzZXJ2aWNlczptYW5hZ2UgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19jb3VudF9pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX2luZGV4IGFwaV9rZXlzOnZpZXcgcGF5bWVudDpwYXltZW50X2NoYW5uZWxzX2luZGV4IHBheW1lbnQ6YmFua3NfdXBkYXRlIGxlZGdlcjpsZWRnZXJfYmFsYW5jZV9oaXN0b3J5X2luZGV4IHBheW1lbnQ6cGVzb25ldF9iYXRjaF91cGRhdGUgcGF5bWVudDptYW51YWxfdHJhbnNmZXJfbWFrZXIgcGF5bWVudDp0cmVhc3VyeV9iYW5rc19jcmVhdGUgcGF5bWVudDphY2NvdW50c19jcmVhdGUgb2F1dGhfY2xpZW50czp2aWV3IGZlYXR1cmVzOm1hbmFnZSBoaWVyYXJjaHk6dmlldyBiaWxsZXJzOmFkZCBhbGVydDphc3NpZ24gcGF5bWVudDphY2NvdW50X2NvbnN0cmFpbnRzX3VwZGF0ZSBhbGVydDp2aWV3X3dvcmtsb2FkIGFuYWx5dGljc19jbGllbnQ6bWFuYWdlIGFjY291bnQtdHlwZXM6bWFuYWdlIGxlZGdlcjpsZWRnZXJfYWNjb3VudHNfc2hvdyBsZWRnZXI6YXBpX2tleXNfZGVsZXRlIHBheW1lbnQ6bWFudWFsX3RyYW5zZmVyX2NoZWNrZXIgcGF5bWVudDpkZWR1Y3Rpb25zX2RlbGV0ZSBvcmc6dmlldyB0ZWFtczptYW5hZ2UgY3VzdG9tZXI6dmlldyBwYXltZW50OmJhbmtzX2RlbGV0ZSBreWMucGVyc29uYWxfaWRlbnRpdHk6dmlldyBwYXltZW50OnRyYW5zYWN0aW9uc19kb3dubG9hZCBhbGVydDphZGRfbm90ZV9hbmRfdmlld19ub3RlcyBhZ2VudDpjcmVhdGUgc3VwZXI6YWRtaW4gbGVkZ2VyOm9yZ2FuaXphdGlvbnNfdXBkYXRlIGFsZXJ0OmRpc3Bvc2l0aW9uX3RydWVfbWF0Y2ggcGF5bWVudDpwYXltZW50X2NoYW5uZWxzX3Nob3cgbm90aWZpY2F0aW9uX3RlbXBsYXRlOnZpZXcgcGF5bWVudDphY2NvdW50c19pbmRleCBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX2luZGV4IHBheW1lbnQ6YWNjb3VudHNfdXBkYXRlIHByb2R1Y3QtdGFnczplZGl0IHBheW1lbnQ6dHJhbnNhY3Rpb25fbGltaXRzX2dldCBhdWRpdF90cmFpbDp2aWV3IHBheW1lbnQ6Y29uc3VtZXJfYWNjb3VudHNfYmFsYW5jZSBwcm9kdWN0czp2aWV3IHBheW1lbnQ6YmFua3NfaW5kZXggb3JkZXJzOnZpZXcgcmVmdW5kczpkb3dubG9hZCBwYXltZW50OmRvd25sb2Fkc19zaG93IHByb2R1Y3RzOmVkaXQgcGF5bWVudDppbnRlcm5hbF90cmFuc2ZlciBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfZGVsZXRlIGVudGl0aWVzOnZpZXcgc2VsbGVyczplZGl0IGFsZXJ0OnJlb3BlbiB0ZWFtLW1lbWJlcnM6aW52aXRlIGxlZGdlcjpsZWRnZXJzX3VwZGF0ZSBlbnRpdGllczptYW5hZ2UgcmVmdW5kczppbml0aWF0ZSBwYXltZW50OmFjY291bnRfY29uc3RyYWludHNfaW5kZXgga3ljLmVtcGxveW1lbnQ6dmlldyBsZWRnZXI6bGVkZ2VyX3RyYW5zYWN0aW9uc191cGRhdGUgcGF5bWVudDpiZW5lZmljaWFyaWVzX3Nob3cgbWVyY2hhbnRzOnZpZXcgcGF5bWVudDpiYW5rc19jcmVhdGUgcGF5bWVudDptZXJjaGFudF90cmFuc2FjdGlvbnNfaW5kZXggcGF5bWVudDphY2NvdW50X3R5cGVfbWFwcGluZ3NfZGVsZXRlIGxlZGdlcjpsZWRnZXJzX2NyZWF0ZSBvcmRlcnM6ZG93bmxvYWQgcmlza19wcm9maWxlOmFjdGlvbnMgcGF5bWVudDphY2NvdW50X3R5cGVfbWFwcGluZ3NfdXBkYXRlIHBheW1lbnQ6YWNjb3VudF90eXBlc19zaG93IHByb2R1Y3QtdGFnczpjcmVhdGUgcHJvZHVjdHM6Y3JlYXRlIG5vdGlmaWNhdGlvbl9jb25maWc6ZWRpdCBhbGVydHNfdWc6YWRtaW4gcm9sZXM6bWFuYWdlIHNlbGxlcnM6dmlldyBwYXltZW50Om1lcmNoYW50X2FjY291bnRzX2JhbGFuY2UgY2hhbm5lbHM6ZWRpdCBwYXltZW50OnRyYW5zYWN0aW9uc19zaG93IHBheW1lbnQ6dHJhbnNhY3Rpb25fc3VtbWFyaWVzX2NsZWFudXAgcHJvZHVjdC10YWdzOnZpZXcgYWxlcnRzX3VnOm1hbmFnZSBrcGlzOm1hbmFnZSBhbGVydDpkaXNwb3NpdGlvbl9wb3RlbnRpYWxfbWF0Y2ggcGF5bWVudDpiYW5rc19zaG93IGNvbnN1bWVyczptYW5hZ2UgcGF5bWVudDp0cmVhc3VyeV9iYW5rc191cGRhdGUgYWxlcnQ6dmlld19ydWxlX2NvbnRleHQgcGF5bWVudDpkZWR1Y3Rpb25zX2NyZWF0ZSBhbGVydHM6dmlldyBhbmFseXRpY3NfY2xpZW50OnZpZXcgcGF5bWVudDptZXJjaGFudF9hY2NvdW50c19pbmRleCBsZWRnZXI6YmFsYW5jZV9tb25pdG9yX3VwZGF0ZSBvcmc6bWFuYWdlIGNvbnN1bWVyczp2aWV3IGxlZGdlcjpsZWRnZXJfZW50cmllc19pbmRleCBwYXltZW50OnRyZWFzdXJ5X2JhbmtzX2RlbGV0ZSByZXRhaWw6dmlldyBjdXN0b21lcjpkZWFjdGl2YXRlIGxlZGdlcjphcGlfa2V5c19zaG93IGN1c3RvbWVyOnJlc2V0IGt5YzphZG1pbiB0ZWFtLW1lbWJlcnM6cmVtb3ZlIGxlZGdlcjpsZWRnZXJzX3Nob3cgcmV0YWlsOmxvZ2luIHByb2R1Y3RzOmRvd25sb2FkIGxlZGdlcjphcGlfa2V5c19jcmVhdGUga3Bpczp2aWV3IHJpc2tfcHJvZmlsZTp2aWV3IGxlZGdlcjpsZWRnZXJfdHJhbnNhY3Rpb25zX3Nob3cgcGF5bWVudDphY2NvdW50X3R5cGVfbWFwcGluZ3NfaW5kZXggdGVhbXM6dmlldyBhbGVydDpyZXZpZXdfcmFpc2UgcHJvZHVjdC1jYXRlZ29yaWVzOnZpZXcgcHJvZHVjdC1jYXRlZ29yaWVzOmVkaXQgbGVkZ2VyOmxlZGdlcl9hY2NvdW50c19kZWxldGUgcGF5bWVudDpiZW5lZmljaWFyaWVzX2NyZWF0ZSBsZWRnZXI6bGVkZ2VyX2FjY291bnRzX3VwZGF0ZSBsZWRnZXI6bGVkZ2VyX2VudHJpZXNfc2hvdyBzZXJ2aWNlczp2aWV3IHBheW1lbnQ6ZGVkdWN0aW9uc19zaG93IGZlYXR1cmVzOnZpZXcgbGVkZ2VyOmxlZGdlcl90cmFuc2FjdGlvbnNfY3JlYXRlIHJlZnVuZHM6dmlldyBwYXltZW50OmRvd25sb2Fkc19pbmRleCBhbGVydHM6bWFuYWdlIHBheW1lbnQ6YWNjb3VudF90eXBlX21hcHBpbmdzX2NyZWF0ZSBvYXV0aF9jbGllbnRzOm1hbmFnZSBwYXltZW50OmFjY291bnRzX2ZyZWV6ZSBwYXltZW50OnBlc29uZXRfY3ljbGVfdXBkYXRlIHBheW1lbnQ6dHJlYXN1cnlfYmFua3NfaW5kZXgiLCJzdWIiOiJhZ3RfZTdlMWM1N2YtZTgzYS00NGY1LWE2N2MtZDFkMDEzYTBlNWExIiwidG9rZW5faWQiOjY3OTEsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJ1c2VyX2lkIjoiMTYxIn0.AgnszHMNszGut2s1qs6W6RlrUAUeUddHtlbVoDuL1AQ</stringProp>
+              </elementProp>
+            </collectionProp>
+            <stringProp name="TestPlan.comments">Created from cURL on 2026-04-10T16:47:02.366213452</stringProp>
+          </HeaderManager>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-credit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/credit2.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">credit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config-debit" enabled="true">
+            <stringProp name="delimiter">,</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="filename">/home/kelly/smart-money-load-testing/ledger-performance/debit2.csv</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="variableNames">debit_id</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+        </hashTree>
+        <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">if (!prev.isSuccessful()) {
+    def file = new File(&quot;/home/kelly/smart-money-load-testing/ledger-performance/debug.txt&quot;)
+    file &lt;&lt; &quot;Request:\n&quot; + prev.getSamplerData() + &quot;\n&quot;
+    file &lt;&lt; &quot;Response:\n&quot; + prev.getResponseDataAsString() + &quot;\n\n&quot;
+}</stringProp>
+        </JSR223PostProcessor>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="false">
+        <stringProp name="FileSaver.filename"></stringProp>
+        <boolProp name="FileSaver.errorsonly">false</boolProp>
+        <boolProp name="FileSaver.successonly">false</boolProp>
+        <boolProp name="FileSaver.skipsuffix">false</boolProp>
+        <boolProp name="FileSaver.skipautonumber">false</boolProp>
+      </ResultSaver>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
+        <collectionProp name="DNSCacheManager.servers"/>
+        <collectionProp name="DNSCacheManager.hosts"/>
+        <boolProp name="DNSCacheManager.clearEachIteration">false</boolProp>
+        <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
+      </DNSCacheManager>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
