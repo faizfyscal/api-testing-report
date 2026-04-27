@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/performance/:path*",
-      "destination": "/performance/:path*"
-    }
-  ]
-}
