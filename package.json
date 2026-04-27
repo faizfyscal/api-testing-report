@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "fix-reports": "node scripts/fix-jmeter-reports.js",
+    "build": "npm run fix-reports && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

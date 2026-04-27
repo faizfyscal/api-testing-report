@@ -17,6 +17,8 @@ export default function LinkList({ links }: Props) {
         <li key={i}>
           <a
             href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm text-blue-500 hover:underline"
           >
             {link.label}
