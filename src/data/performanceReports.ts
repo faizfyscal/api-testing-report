@@ -73,11 +73,6 @@ export const performanceDashboardData = [
             href: "/performance/payment/fyscal-15/ledgerreport_20260424_111725/index.html",
             tag: "new"
           },
-          {
-            label: "Load 417 (1hr) | 24 Apr | 11:17 AM",
-            href: "/performance/payment/test/index.html",
-            tag: "new"
-          }
         ]
       }
     ]
